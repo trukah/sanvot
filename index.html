@@ -1,66 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>SanvaTheory - Sanpiv Advance</title>
+  <meta charset="UTF-8">
+  <title>Sanpiv Advance</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(to bottom right, #f4f6f8, #e6edf3);
+      background: linear-gradient(to bottom right, #f0f4f8, #d9eaf7);
       margin: 0;
       padding: 20px;
     }
     .container {
-      background: #fff;
-      border-radius: 16px;
-      box-shadow: 0 4px 12px rgba(0, 48, 135, 0.15);
-      padding: 30px;
-      max-width: 400px;
+      max-width: 600px;
       margin: auto;
+      background: #ffffff;
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 4px 12px rgba(0, 48, 135, 0.15);
+      border: 1px solid #e0ebf7;
     }
     h2 {
-      color: #003087;
       text-align: center;
-      font-size: 22px;
-      margin-bottom: 25px;
+      color: #0050a3;
+      margin-bottom: 30px;
+      font-weight: 700;
     }
     label {
       font-size: 14px;
-      color: #333;
+      font-weight: 500;
+      color: #004080;
       margin-bottom: 6px;
       display: block;
-      font-weight: 500;
     }
     input, select {
       width: 100%;
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      font-size: 14px;
+      padding: 10px 12px;
       margin-bottom: 20px;
+      border-radius: 12px;
+      border: 1px solid #b8d9f2;
+      background: #f5faff;
+      color: #003366;
+      font-size: 14px;
+      outline: none;
     }
     button {
       width: 100%;
       padding: 12px;
       background: linear-gradient(to right, #007cba, #00a19c);
-      color: #fff;
+      color: white;
+      font-weight: bold;
       border: none;
-      border-radius: 8px;
-      font-size: 15px;
-      font-weight: 600;
+      border-radius: 12px;
       cursor: pointer;
+      font-size: 15px;
+      margin-top: 10px;
     }
     button:hover {
       background: linear-gradient(to right, #005fa3, #008f86);
     }
-    #chartContainer {
+    table {
+      width: 100%;
+      border-collapse: collapse;
       margin-top: 30px;
-      display: none;
+      background: #f9fcff;
     }
-    canvas {
-      width: 100% !important;
-      height: auto !important;
+    table th, table td {
+      border: 1px solid #c2e0f4;
+      padding: 12px;
+      text-align: center;
+      font-size: 14px;
+      color: #003366;
+    }
+    table th {
+      background-color: #e5f4ff;
+      font-weight: 600;
+      color: #0050a3;
+    }
+    .note {
+      font-size: 12px;
+      color: #004080;
+      background: #e5f7ed;
+      border-left: 4px solid #00a19c;
+      padding: 10px;
+      margin-top: 20px;
+      border-radius: 8px;
     }
   </style>
 </head>
@@ -69,10 +93,10 @@
     <h2>SANPIV ADVANCE</h2>
 
     <label for="vf">Volatility Factor (VF)</label>
-    <input type="number" id="vf" step="0.01" placeholder="e.g. 3245.36">
+    <input type="number" id="vf" step="0.01" placeholder="contoh: 3245.36">
 
     <label for="cf">Close Factor (CF)</label>
-    <input type="number" id="cf" step="0.01" placeholder="e.g. 3237.53">
+    <input type="number" id="cf" step="0.01" placeholder="contoh: 3237.53">
 
     <label for="session">Session</label>
     <select id="session">
@@ -81,24 +105,40 @@
       <option value="21" selected>Amerika</option>
     </select>
 
-    <button onclick="calculate()">Calculate</button>
+    <button onclick="calculate()">Hitung</button>
 
-    <div id="chartContainer">
-      <canvas id="pivotChart"></canvas>
+    <div id="result" style="display:none;">
+      <table>
+        <thead>
+          <tr>
+            <th>Sesi</th>
+            <th>Wilayah</th>
+            <th>Sell Long</th>
+            <th>Target Sell</th>
+            <th>Pivot Point</th>
+            <th>Target Buy</th>
+            <th>Buy Long</th>
+          </tr>
+        </thead>
+        <tbody id="resultBody"></tbody>
+      </table>
+
+      <div class="note">
+        Nilai dihitung berdasarkan input Sanva Theory dengan VF dan CF, serta penyesuaian sesi trading yang Anda pilih.
+      </div>
     </div>
   </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
-    let chart; // global reference to update later
-
     function calculate() {
       const vf = parseFloat(document.getElementById('vf').value);
       const cf = parseFloat(document.getElementById('cf').value);
-      const smoothFactor = parseFloat(document.getElementById('session').value);
+      const session = document.getElementById('session');
+      const smoothFactor = parseFloat(session.value);
+      const sessionName = session.options[session.selectedIndex].text;
 
       if (isNaN(vf) || isNaN(cf)) {
-        alert('Please enter valid VF and CF!');
+        alert("Masukkan VF dan CF yang valid.");
         return;
       }
 
@@ -111,56 +151,22 @@
       const targetSell = pp - (range * 0.5);
       const sellLong = pp - (range * 1.618);
 
-      const labels = ['Sell Long', 'Target Sell', 'Pivot Point', 'Target Buy', 'Buy Long'];
-      const data = [sellLong, targetSell, pp, targetBuy, buyLong];
+      const wilayah = sessionName === "Asia" ? "Tokyo/Sydney" : 
+                      sessionName === "Eropa" ? "London" : "New York";
 
-      const chartContainer = document.getElementById('chartContainer');
-      chartContainer.style.display = 'block';
-
-      const ctx = document.getElementById('pivotChart').getContext('2d');
-
-      if (chart) chart.destroy(); // destroy existing chart
-
-      chart = new Chart(ctx, {
-        type: 'line',
-        data: {
-          labels: labels,
-          datasets: [{
-            label: 'Sanpiv Levels',
-            data: data,
-            fill: false,
-            borderColor: '#007cba',
-            backgroundColor: '#00a19c',
-            tension: 0.3,
-            pointRadius: 5,
-            pointHoverRadius: 7
-          }]
-        },
-        options: {
-          responsive: true,
-          scales: {
-            y: {
-              beginAtZero: false,
-              title: {
-                display: true,
-                text: 'Price Level'
-              }
-            }
-          },
-          plugins: {
-            legend: {
-              display: false
-            },
-            tooltip: {
-              callbacks: {
-                label: function(context) {
-                  return context.dataset.label + ': ' + context.formattedValue;
-                }
-              }
-            }
-          }
-        }
-      });
+      const tbody = document.getElementById("resultBody");
+      tbody.innerHTML = `
+        <tr>
+          <td>${sessionName}</td>
+          <td>${wilayah}</td>
+          <td>${sellLong.toFixed(2)}</td>
+          <td>${targetSell.toFixed(2)}</td>
+          <td>${pp.toFixed(2)}</td>
+          <td>${targetBuy.toFixed(2)}</td>
+          <td>${buyLong.toFixed(2)}</td>
+        </tr>
+      `;
+      document.getElementById("result").style.display = "block";
     }
   </script>
 </body>
