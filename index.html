@@ -1,163 +1,167 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>SanvaTheory - Sanpiv Advance</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(to bottom right, #f4f6f8, #e6edf3);
-            margin: 0;
-            padding: 20px;
-        }
-
-        .container {
-            background: #ffffff;
-            border-radius: 16px;
-            box-shadow: 0 4px 12px rgba(0, 48, 135, 0.15);
-            padding: 30px;
-            max-width: 400px;
-            margin: auto;
-        }
-
-        h2 {
-            color: #003087;
-            text-align: center;
-            font-size: 22px;
-            margin-bottom: 25px;
-            letter-spacing: 1px;
-        }
-
-        label {
-            display: block;
-            color: #333;
-            font-size: 14px;
-            margin-bottom: 6px;
-            font-weight: 500;
-        }
-
-        input, select {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            font-size: 14px;
-            margin-bottom: 20px;
-            transition: border-color 0.3s;
-        }
-
-        input:focus, select:focus {
-            border-color: #00a19c;
-            outline: none;
-        }
-
-        button {
-            width: 100%;
-            padding: 12px;
-            background: linear-gradient(to right, #007cba, #00a19c);
-            color: #fff;
-            border: none;
-            border-radius: 8px;
-            font-size: 15px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background 0.3s ease;
-        }
-
-        button:hover {
-            background: linear-gradient(to right, #005fa3, #008f86);
-        }
-
-        #result {
-            margin-top: 25px;
-            padding: 15px;
-            background: #f4f8fb;
-            border-radius: 10px;
-            display: none;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 13px;
-        }
-
-        th, td {
-            padding: 10px;
-            text-align: left;
-        }
-
-        th {
-            color: #007cba;
-        }
-
-        tr:nth-child(even) {
-            background-color: #eaf1f8;
-        }
-
-        tr:nth-child(odd) {
-            background-color: #f7fbfc;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <title>SanvaTheory - Sanpiv Advance</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom right, #f4f6f8, #e6edf3);
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0, 48, 135, 0.15);
+      padding: 30px;
+      max-width: 400px;
+      margin: auto;
+    }
+    h2 {
+      color: #003087;
+      text-align: center;
+      font-size: 22px;
+      margin-bottom: 25px;
+    }
+    label {
+      font-size: 14px;
+      color: #333;
+      margin-bottom: 6px;
+      display: block;
+      font-weight: 500;
+    }
+    input, select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      background: linear-gradient(to right, #007cba, #00a19c);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    button:hover {
+      background: linear-gradient(to right, #005fa3, #008f86);
+    }
+    #chartContainer {
+      margin-top: 30px;
+      display: none;
+    }
+    canvas {
+      width: 100% !important;
+      height: auto !important;
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h2>SANPIV ADVANCE</h2>
+  <div class="container">
+    <h2>SANPIV ADVANCE</h2>
 
-        <label for="vf">Volatility Factor (VF)</label>
-        <input type="number" id="vf" step="0.01" placeholder="e.g. 3245.36">
+    <label for="vf">Volatility Factor (VF)</label>
+    <input type="number" id="vf" step="0.01" placeholder="e.g. 3245.36">
 
-        <label for="cf">Close Factor (CF)</label>
-        <input type="number" id="cf" step="0.01" placeholder="e.g. 3237.53">
+    <label for="cf">Close Factor (CF)</label>
+    <input type="number" id="cf" step="0.01" placeholder="e.g. 3237.53">
 
-        <label for="session">Session</label>
-        <select id="session">
-            <option value="8">Asia</option>
-            <option value="13">Eropa</option>
-            <option value="21" selected>Amerika</option>
-        </select>
+    <label for="session">Session</label>
+    <select id="session">
+      <option value="8">Asia</option>
+      <option value="13">Eropa</option>
+      <option value="21" selected>Amerika</option>
+    </select>
 
-        <button onclick="calculate()">Calculate</button>
+    <button onclick="calculate()">Calculate</button>
 
-        <div id="result">
-            <table>
-                <tr><th>Pivot Point (PP)</th><td id="pp"></td></tr>
-                <tr><th>Target Buy</th><td id="targetBuy"></td></tr>
-                <tr><th>Buy Long</th><td id="buyLong"></td></tr>
-                <tr><th>Target Sell</th><td id="targetSell"></td></tr>
-                <tr><th>Sell Long</th><td id="sellLong"></td></tr>
-            </table>
-        </div>
+    <div id="chartContainer">
+      <canvas id="pivotChart"></canvas>
     </div>
+  </div>
 
-    <script>
-        function calculate() {
-            var vf = parseFloat(document.getElementById('vf').value);
-            var cf = parseFloat(document.getElementById('cf').value);
-            var smoothFactor = parseFloat(document.getElementById('session').value);
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    let chart; // global reference to update later
 
-            if (isNaN(vf) || isNaN(cf)) {
-                alert('Please enter valid VF and CF!');
-                return;
+    function calculate() {
+      const vf = parseFloat(document.getElementById('vf').value);
+      const cf = parseFloat(document.getElementById('cf').value);
+      const smoothFactor = parseFloat(document.getElementById('session').value);
+
+      if (isNaN(vf) || isNaN(cf)) {
+        alert('Please enter valid VF and CF!');
+        return;
+      }
+
+      const hs = vf + smoothFactor;
+      const ls = vf - smoothFactor;
+      const pp = (hs + ls + cf) / 3;
+      const range = hs - ls;
+      const targetBuy = pp + (range * 0.5);
+      const buyLong = pp + (range * 1.618);
+      const targetSell = pp - (range * 0.5);
+      const sellLong = pp - (range * 1.618);
+
+      const labels = ['Sell Long', 'Target Sell', 'Pivot Point', 'Target Buy', 'Buy Long'];
+      const data = [sellLong, targetSell, pp, targetBuy, buyLong];
+
+      const chartContainer = document.getElementById('chartContainer');
+      chartContainer.style.display = 'block';
+
+      const ctx = document.getElementById('pivotChart').getContext('2d');
+
+      if (chart) chart.destroy(); // destroy existing chart
+
+      chart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: labels,
+          datasets: [{
+            label: 'Sanpiv Levels',
+            data: data,
+            fill: false,
+            borderColor: '#007cba',
+            backgroundColor: '#00a19c',
+            tension: 0.3,
+            pointRadius: 5,
+            pointHoverRadius: 7
+          }]
+        },
+        options: {
+          responsive: true,
+          scales: {
+            y: {
+              beginAtZero: false,
+              title: {
+                display: true,
+                text: 'Price Level'
+              }
             }
-
-            var hs = vf + smoothFactor;
-            var ls = vf - smoothFactor;
-            var pp = (hs + ls + cf) / 3;
-            var range = hs - ls;
-            var targetBuy = pp + (range * 0.5);
-            var buyLong = pp + (range * 1.618);
-            var targetSell = pp - (range * 0.5);
-            var sellLong = pp - (range * 1.618);
-
-            document.getElementById('pp').textContent = pp.toFixed(2);
-            document.getElementById('targetBuy').textContent = targetBuy.toFixed(2);
-            document.getElementById('buyLong').textContent = buyLong.toFixed(2);
-            document.getElementById('targetSell').textContent = targetSell.toFixed(2);
-            document.getElementById('sellLong').textContent = sellLong.toFixed(2);
-            document.getElementById('result').style.display = 'block';
+          },
+          plugins: {
+            legend: {
+              display: false
+            },
+            tooltip: {
+              callbacks: {
+                label: function(context) {
+                  return context.dataset.label + ': ' + context.formattedValue;
+                }
+              }
+            }
+          }
         }
-    </script>
+      });
+    }
+  </script>
 </body>
 </html>
