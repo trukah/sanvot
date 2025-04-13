@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Strategy Calculator</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body style="font-family: Arial, sans-serif; background: #f4f6f8; margin: 10px; padding: 0;">
+    <div style="background: #fff; border-radius: 5px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); padding: 20px; max-width: 360px; margin: auto;">
+        <h2 style="color: #003087; text-align: center; font-size: 20px; margin: 0 0 15px;">Strategy Calculator</h2>
+        
+        <div style="margin-bottom: 15px;">
+            <label style="display: block; color: #333; font-size: 14px; margin-bottom: 5px;">Volatility Factor (VF)</label>
+            <input type="number" id="vf" step="0.01" placeholder="e.g. 3245.36" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 3px; font-size: 14px;">
+        </div>
+        
+        <div style="margin-bottom: 15px;">
+            <label style="display: block; color: #333; font-size: 14px; margin-bottom: 5px;">Close Factor (CF)</label>
+            <input type="number" id="cf" step="0.01" placeholder="e.g. 3237.53" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 3px; font-size: 14px;">
+        </div>
+        
+        <div style="margin-bottom: 15px;">
+            <label style="display: block; color: #333; font-size: 14px; margin-bottom: 5px;">Session</label>
+            <select id="session" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 3px; font-size: 14px;">
+                <option value="8">Asia</option>
+                <option value="13">Eropa</option>
+                <option value="21" selected>Amerika</option>
+            </select>
+        </div>
+        
+        <button onclick="calculate()" style="width: 100%; padding: 10px; background: #003087; color: #fff; border: none; border-radius: 3px; font-size: 14px; cursor: pointer;">Calculate</button>
+        
+        <div id="result" style="margin-top: 15px; padding: 10px; background: #f9f9f9; border-radius: 3px; display: none;">
+            <table style="width: 100%; border-collapse: collapse; font-size: 13px;">
+                <tr style="background: #f1f3f5;"><th style="padding: 8px; color: #003087; text-align: left;">Pivot Point (PP)</th><td id="pp" style="padding: 8px; color: #333;"></td></tr>
+                <tr><th style="padding: 8px; color: #003087; text-align: left;">Target Buy</th><td id="targetBuy" style="padding: 8px; color: #333;"></td></tr>
+                <tr style="background: #f1f3f5;"><th style="padding: 8px; color: #003087; text-align: left;">Buy Long</th><td id="buyLong" style="padding: 8px; color: #333;"></td></tr>
+                <tr><th style="padding: 8px; color: #003087; text-align: left;">Target Sell</th><td id="targetSell" style="padding: 8px; color: #333;"></td></tr>
+                <tr style="background: #f1f3f5;"><th style="padding: 8px; color: #003087; text-align: left;">Sell Long</th><td id="sellLong" style="padding: 8px; color: #333;"></td></tr>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        function calculate() {
+            var vf = parseFloat(document.getElementById('vf').value);
+            var cf = parseFloat(document.getElementById('cf').value);
+            var smoothFactor = parseFloat(document.getElementById('session').value);
+
+            if (isNaN(vf) || isNaN(cf)) {
+                alert('Please enter valid VF and CF!');
+                return;
+            }
+
+            var hs = vf + smoothFactor;
+            var ls = vf - smoothFactor;
+            var pp = (hs + ls + cf) / 3;
+            var range = hs - ls;
+            var targetBuy = pp + (range * 0.5);
+            var buyLong = pp + (range * 1.618);
+            var targetSell = pp - (range * 0.5);
+            var sellLong = pp - (range * 1.618);
+
+            document.getElementById('pp').textContent = pp.toFixed(2);
+            document.getElementById('targetBuy').textContent = targetBuy.toFixed(2);
+            document.getElementById('buyLong').textContent = buyLong.toFixed(2);
+            document.getElementById('targetSell').textContent = targetSell.toFixed(2);
+            document.getElementById('sellLong').textContent = sellLong.toFixed(2);
+            document.getElementById('result').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
