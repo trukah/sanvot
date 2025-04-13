@@ -1,41 +1,132 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <title>SanvaTheory - Sanpiv Advance</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(to bottom right, #f4f6f8, #e6edf3);
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            background: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(0, 48, 135, 0.15);
+            padding: 30px;
+            max-width: 400px;
+            margin: auto;
+        }
+
+        h2 {
+            color: #003087;
+            text-align: center;
+            font-size: 22px;
+            margin-bottom: 25px;
+            letter-spacing: 1px;
+        }
+
+        label {
+            display: block;
+            color: #333;
+            font-size: 14px;
+            margin-bottom: 6px;
+            font-weight: 500;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 14px;
+            margin-bottom: 20px;
+            transition: border-color 0.3s;
+        }
+
+        input:focus, select:focus {
+            border-color: #00a19c;
+            outline: none;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(to right, #007cba, #00a19c);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        button:hover {
+            background: linear-gradient(to right, #005fa3, #008f86);
+        }
+
+        #result {
+            margin-top: 25px;
+            padding: 15px;
+            background: #f4f8fb;
+            border-radius: 10px;
+            display: none;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            color: #007cba;
+        }
+
+        tr:nth-child(even) {
+            background-color: #eaf1f8;
+        }
+
+        tr:nth-child(odd) {
+            background-color: #f7fbfc;
+        }
+    </style>
 </head>
-<body style="font-family: Arial, sans-serif; background: #f4f6f8; margin: 10px; padding: 0;">
-    <div style="background: #fff; border-radius: 5px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); padding: 20px; max-width: 360px; margin: auto;">
-        <h2 style="color: #003087; text-align: center; font-size: 20px; margin: 0 0 15px;">SANPIV ADVANCE</h2>
-        
-        <div style="margin-bottom: 15px;">
-            <label style="display: block; color: #333; font-size: 14px; margin-bottom: 5px;">Volatility Factor (VF)</label>
-            <input type="number" id="vf" step="0.01" placeholder="e.g. 3245.36" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 3px; font-size: 14px;">
-        </div>
-        
-        <div style="margin-bottom: 15px;">
-            <label style="display: block; color: #333; font-size: 14px; margin-bottom: 5px;">Close Factor (CF)</label>
-            <input type="number" id="cf" step="0.01" placeholder="e.g. 3237.53" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 3px; font-size: 14px;">
-        </div>
-        
-        <div style="margin-bottom: 15px;">
-            <label style="display: block; color: #333; font-size: 14px; margin-bottom: 5px;">Session</label>
-            <select id="session" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 3px; font-size: 14px;">
-                <option value="8">Asia</option>
-                <option value="13">Eropa</option>
-                <option value="21" selected>Amerika</option>
-            </select>
-        </div>
-        
-        <button onclick="calculate()" style="width: 100%; padding: 10px; background: #003087; color: #fff; border: none; border-radius: 3px; font-size: 14px; cursor: pointer;">Calculate</button>
-        
-        <div id="result" style="margin-top: 15px; padding: 10px; background: #f9f9f9; border-radius: 3px; display: none;">
-            <table style="width: 100%; border-collapse: collapse; font-size: 13px;">
-                <tr style="background: #f1f3f5;"><th style="padding: 8px; color: #003087; text-align: left;">Pivot Point (PP)</th><td id="pp" style="padding: 8px; color: #333;"></td></tr>
-                <tr><th style="padding: 8px; color: #003087; text-align: left;">Target Buy</th><td id="targetBuy" style="padding: 8px; color: #333;"></td></tr>
-                <tr style="background: #f1f3f5;"><th style="padding: 8px; color: #003087; text-align: left;">Buy Long</th><td id="buyLong" style="padding: 8px; color: #333;"></td></tr>
-                <tr><th style="padding: 8px; color: #003087; text-align: left;">Target Sell</th><td id="targetSell" style="padding: 8px; color: #333;"></td></tr>
-                <tr style="background: #f1f3f5;"><th style="padding: 8px; color: #003087; text-align: left;">Sell Long</th><td id="sellLong" style="padding: 8px; color: #333;"></td></tr>
+<body>
+    <div class="container">
+        <h2>SANPIV ADVANCE</h2>
+
+        <label for="vf">Volatility Factor (VF)</label>
+        <input type="number" id="vf" step="0.01" placeholder="e.g. 3245.36">
+
+        <label for="cf">Close Factor (CF)</label>
+        <input type="number" id="cf" step="0.01" placeholder="e.g. 3237.53">
+
+        <label for="session">Session</label>
+        <select id="session">
+            <option value="8">Asia</option>
+            <option value="13">Eropa</option>
+            <option value="21" selected>Amerika</option>
+        </select>
+
+        <button onclick="calculate()">Calculate</button>
+
+        <div id="result">
+            <table>
+                <tr><th>Pivot Point (PP)</th><td id="pp"></td></tr>
+                <tr><th>Target Buy</th><td id="targetBuy"></td></tr>
+                <tr><th>Buy Long</th><td id="buyLong"></td></tr>
+                <tr><th>Target Sell</th><td id="targetSell"></td></tr>
+                <tr><th>Sell Long</th><td id="sellLong"></td></tr>
             </table>
         </div>
     </div>
