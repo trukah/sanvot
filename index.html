@@ -1,106 +1,135 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Sanpiv Advance</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(to bottom right, #f0f4f8, #d9eaf7);
+      background: linear-gradient(to bottom right, #f8fbfd, #e0eff7);
       margin: 0;
       padding: 20px;
     }
+
     .container {
       max-width: 600px;
       margin: auto;
       background: #ffffff;
-      border-radius: 16px;
-      padding: 24px;
-      box-shadow: 0 4px 12px rgba(0, 48, 135, 0.15);
-      border: 1px solid #e0ebf7;
+      border-radius: 18px;
+      padding: 28px;
+      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.1);
+      border: 1px solid #ddeef9;
     }
+
     h2 {
       text-align: center;
-      color: #0050a3;
-      margin-bottom: 24px;
+      color: #004c99;
+      margin-bottom: 28px;
     }
+
     label {
       font-size: 14px;
-      color: #004080;
+      color: #003366;
       margin-bottom: 6px;
       display: block;
     }
+
     input, select {
       width: 100%;
-      padding: 10px;
-      margin-bottom: 16px;
+      padding: 12px;
+      margin-bottom: 18px;
       border-radius: 12px;
-      border: 1px solid #b8d9f2;
-      background: #f5faff;
-      font-size: 14px;
+      border: 1px solid #cbe5f5;
+      background: #f6fbff;
+      font-size: 15px;
+      transition: all 0.3s ease-in-out;
     }
+
+    input:focus, select:focus {
+      background-color: #fff;
+      border-color: #0056b3;
+      color: #000;
+      outline: none;
+      box-shadow: 0 0 0 2px rgba(0, 86, 179, 0.2);
+    }
+
     button {
       width: 100%;
-      padding: 12px;
-      background: linear-gradient(to right, #007cba, #00a19c);
+      padding: 14px;
+      background: linear-gradient(to right, #005caa, #008d97);
       color: white;
       border: none;
-      border-radius: 12px;
-      font-size: 15px;
+      border-radius: 14px;
+      font-size: 16px;
       font-weight: bold;
       cursor: pointer;
+      transition: background 0.3s;
     }
+
+    button:hover {
+      background: linear-gradient(to right, #004080, #007373);
+    }
+
     .result-section {
-      margin-top: 30px;
+      margin-top: 32px;
     }
+
     .result-header {
-      background: #e5f4ff;
+      background: #eaf7ff;
       padding: 12px 16px;
-      border-left: 4px solid #00a19c;
+      border-left: 4px solid #0099cc;
       font-weight: 600;
-      color: #004080;
+      color: #003c66;
       border-radius: 6px;
       margin-bottom: 16px;
     }
+
     .tables {
       display: flex;
       flex-direction: column;
       gap: 20px;
     }
+
     @media (min-width: 500px) {
       .tables {
         flex-direction: row;
       }
     }
+
     table {
       width: 100%;
       border-collapse: collapse;
       background: #f9fcff;
-      border: 1px solid #c2e0f4;
+      border: 1px solid #cce6f7;
       border-radius: 8px;
       overflow: hidden;
     }
+
     th, td {
       padding: 10px;
       text-align: center;
       font-size: 14px;
     }
+
     th {
-      background-color: #e1f3ff;
+      background-color: #d8f1ff;
       color: #005099;
     }
+
     td {
       color: #003366;
     }
+
     .note {
-      font-size: 12px;
-      margin-top: 20px;
-      background: #f1fdf7;
-      padding: 12px;
-      border-left: 4px solid #00a19c;
-      color: #004b3c;
+      font-size: 13px;
+      margin-top: 24px;
+      background: #f0fdf6;
+      padding: 14px;
+      border-left: 4px solid #00a88c;
+      color: #004d3d;
       border-radius: 6px;
+      text-align: justify;
     }
   </style>
 </head>
@@ -109,10 +138,10 @@
     <h2>SANPIV ADVANCE</h2>
 
     <label for="vf">Volatility Factor (VF)</label>
-    <input type="number" id="vf" step="0.01" placeholder="Contoh: 3245.36">
+    <input type="number" id="vf" step="0.01" placeholder="Contoh: 3245.36" />
 
     <label for="cf">Close Factor (CF)</label>
-    <input type="number" id="cf" step="0.01" placeholder="Contoh: 3237.53">
+    <input type="number" id="cf" step="0.01" placeholder="Contoh: 3237.53" />
 
     <label for="session">Session</label>
     <select id="session">
@@ -128,9 +157,7 @@
 
       <div class="tables">
         <table>
-          <thead>
-            <tr><th colspan="2">Target Buy</th></tr>
-          </thead>
+          <thead><tr><th colspan="2">Target Buy</th></tr></thead>
           <tbody>
             <tr><td>Pivot Point</td><td id="ppBuy"></td></tr>
             <tr><td>Target Buy</td><td id="targetBuy"></td></tr>
@@ -139,9 +166,7 @@
         </table>
 
         <table>
-          <thead>
-            <tr><th colspan="2">Target Sell</th></tr>
-          </thead>
+          <thead><tr><th colspan="2">Target Sell</th></tr></thead>
           <tbody>
             <tr><td>Pivot Point</td><td id="ppSell"></td></tr>
             <tr><td>Target Sell</td><td id="targetSell"></td></tr>
