@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SANPIV ADVANCE (VTH/VTL/SFS)</title>
+  <style>
+    body { margin:0; padding:0; background:linear-gradient(to bottom right,#0a0f1a,#121c2a); font-family:'Segoe UI',sans-serif; display:flex; justify-content:center; align-items:center; min-height:100vh; }
+    .container { backdrop-filter:blur(14px); background:rgba(20,30,50,0.4); padding:36px; border-radius:18px; max-width:680px; width:92%; box-shadow:0 10px 40px rgba(0,0,0,0.6); border:1px solid rgba(255,255,255,0.1); }
+    .branding { display:flex; justify-content:space-between; align-items:center; margin-bottom:22px; }
+    .logo { font-size:28px; font-weight:bold; background:linear-gradient(to right,#6dd5fa,#2980b9); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+    .logo-badge { background:#1b2d40; color:#fff; padding:6px 14px; border-radius:14px; font-weight:bold; font-size:13px; }
+    h2 { text-align:center; color:#e0f7ff; font-size:24px; margin-bottom:24px; display:flex; align-items:center; justify-content:center; }
+    h2::before { content:'🔬'; margin-right:10px; font-size:26px; }
+    label { display:block; margin-bottom:6px; font-size:14px; color:#cceeff; }
+    input[type="number"] { width:100%; padding:10px; margin-bottom:16px; border-radius:12px; border:1px solid #66b2ff; background:rgba(255,255,255,0.07); color:#fff; font-size:14px; }
+    input[type="number"]:focus { background:rgba(255,255,255,0.15); box-shadow:0 0 6px #00bfff; outline:none; }
+    button { width:100%; padding:12px; background:linear-gradient(to right,#0099ff,#005fa3); color:white; border:none; border-radius:12px; font-size:15px; font-weight:bold; cursor:pointer; transition:0.3s; }
+    button:hover { background:linear-gradient(to right,#007acc,#004b8a); }
+    .result-section { margin-top:30px; }
+    .result-combined { background:rgba(0,153,255,0.1); padding:16px; border-left:5px solid #00cfff; color:#e0faff; border-radius:10px; font-weight:bold; margin-bottom:20px; font-size:16px; text-align:center; }
+    .tables { display:flex; flex-direction:column; gap:20px; }
+    @media (min-width:500px) { .tables { flex-direction:row; } }
+    table { width:100%; border-collapse:collapse; background:rgba(255,255,255,0.07); border:1px solid rgba(255,255,255,0.1); border-radius:8px; overflow:hidden; }
+    th,td { padding:10px; text-align:center; font-size:14px; }
+    th { background-color:rgba(173,216,230,0.1); color:#b0dfff; }
+    td { color:#e6f7ff; }
+    .note { font-size:12px; background:rgba(0,255,255,0.06); padding:14px; border-left:4px solid #00cfff; color:#b3ecff; border-radius:6px; text-align:justify; margin-top:18px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="branding">
+      <div class="logo">Sanva Indonesia</div>
+      <div class="logo-badge">Sanva</div>
+    </div>
+
+    <h2>SANPIV ADVANCE</h2>
+
+    <label for="vth">Volatility Factor High (VTH)</label>
+    <input type="number" id="vth" step="0.01" placeholder="Misal: 3386.62">
+
+    <label for="vtl">Volatility Factor Low (VTL)</label>
+    <input type="number" id="vtl" step="0.01" placeholder="Misal: 3313.67">
+
+    <label for="sfs">Smooth Factor Sesi (SFS)</label>
+    <input type="number" id="sfs" step="0.01" placeholder="Misal: 8">
+
+    <button onclick="calculate()">Hitung</button>
+
+    <div id="result" class="result-section" style="display:none;">
+      <div class="result-combined" id="pivotDisplay"></div>
+      <div class="tables">
+        <table>
+          <thead><tr><th colspan="2">Distribusi</th></tr></thead>
+          <tbody>
+            <tr><td>Trigger SELL</td><td id="targetBuy"></td></tr>
+            <tr><td>Buy Long</td><td id="buyLong"></td></tr>
+          </tbody>
+        </table>
+        <table>
+          <thead><tr><th colspan="2">Akumulasi</th></tr></thead>
+          <tbody>
+            <tr><td>Trigger BUY</td><td id="targetSell"></td></tr>
+            <tr><td>Sell Long</td><td id="sellLong"></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="note">Perhitungan berdasarkan model Sanva Theory (dengan input VTH, VTL, dan SFS). Hasil bukan sinyal keuangan, gunakan sebagai referensi analisis tambahan.</div>
+    </div>
+  </div>
+
+  <script>
+    function calculate() {
+      const VTH = parseFloat(document.getElementById('vth').value);
+      const VTL = parseFloat(document.getElementById('vtl').value);
+      const SFS = parseFloat(document.getElementById('sfs').value);
+      if (isNaN(VTH) || isNaN(VTL) || isNaN(SFS)) {
+        alert('Masukkan semua nilai (VTH, VTL, SFS) dengan benar.');
+        return;
+      }
+      // Hitung High & Low swift (diganti input langsung)
+      const HS = VTH;
+      const LS = VTL;
+      // Pivot Point
+      const PP = (HS + LS + SFS) / 3;
+      const range = HS - LS;
+      // Level target
+      const targetBuy  = PP + range * 0.5;
+      const buyLong    = PP + range * 1.618;
+      const targetSell = PP - range * 0.5;
+      const sellLong   = PP - range * 1.618;
+      // Tampilkan
+      document.getElementById('pivotDisplay').textContent = `Pivot Point: ${PP.toFixed(2)}`;
+      document.getElementById('targetBuy'   ).textContent = targetBuy.toFixed(2);
+      document.getElementById('buyLong'     ).textContent = buyLong.toFixed(2);
+      document.getElementById('targetSell'  ).textContent = targetSell.toFixed(2);
+      document.getElementById('sellLong'    ).textContent = sellLong.toFixed(2);
+      document.getElementById('result').style.display = 'block';
+    }
+  </script>
+</body>
+</html>
