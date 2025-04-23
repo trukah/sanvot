@@ -8,7 +8,7 @@
     body {
       margin: 0;
       padding: 0;
-      background: linear-gradient(to bottom right, #004e92, #000428);
+      background: linear-gradient(to bottom right, #0a0f1a, #121c2a);
       font-family: 'Segoe UI', sans-serif;
       display: flex;
       justify-content: center;
@@ -17,60 +17,61 @@
     }
 
     .container {
-      background: rgba(255, 255, 255, 0.95);
-      padding: 32px;
+      backdrop-filter: blur(14px);
+      background: rgba(20, 30, 50, 0.4);
+      padding: 36px;
       border-radius: 18px;
-      max-width: 650px;
-      width: 90%;
-      box-shadow: 0 0 20px rgba(0,0,0,0.3);
+      max-width: 680px;
+      width: 92%;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+      border: 1px solid rgba(255,255,255,0.1);
     }
 
     .branding {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 20px;
+      margin-bottom: 22px;
     }
 
     .logo {
-      font-size: 26px;
+      font-size: 28px;
       font-weight: bold;
-      color: #004e92;
-      background: linear-gradient(to right, #007cba, #00c6ff);
+      background: linear-gradient(to right, #6dd5fa, #2980b9);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
 
     .logo-badge {
-      background: #003366;
+      background: #1b2d40;
       color: #fff;
-      padding: 6px 12px;
-      border-radius: 12px;
+      padding: 6px 14px;
+      border-radius: 14px;
       font-weight: bold;
-      font-size: 14px;
+      font-size: 13px;
     }
 
     h2 {
+      text-align: center;
+      color: #e0f7ff;
+      font-size: 24px;
+      margin-bottom: 24px;
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #003366;
-      margin-bottom: 24px;
-      font-size: 24px;
     }
 
     h2::before {
-      content: '🧮';
+      content: '🔬';
       margin-right: 10px;
       font-size: 26px;
-      color: #004e92;
     }
 
     label {
       display: block;
       margin-bottom: 6px;
       font-size: 14px;
-      color: #003366;
+      color: #cceeff;
     }
 
     input[type="number"] {
@@ -78,16 +79,16 @@
       padding: 10px;
       margin-bottom: 16px;
       border-radius: 12px;
-      border: 1px solid #b8d9f2;
-      background: #f5faff;
-      color: #000;
+      border: 1px solid #66b2ff;
+      background: rgba(255, 255, 255, 0.07);
+      color: #ffffff;
       font-size: 14px;
-      transition: 0.3s ease;
     }
 
     input[type="number"]:focus {
-      background: #fff;
-      box-shadow: 0 0 6px #007cba;
+      background: rgba(255,255,255,0.15);
+      box-shadow: 0 0 6px #00bfff;
+      outline: none;
     }
 
     .session-options {
@@ -102,13 +103,13 @@
       align-items: center;
       gap: 6px;
       font-size: 14px;
-      color: #002244;
+      color: #d6f4ff;
     }
 
     button {
       width: 100%;
       padding: 12px;
-      background: linear-gradient(to right, #007cba, #00a19c);
+      background: linear-gradient(to right, #0099ff, #005fa3);
       color: white;
       border: none;
       border-radius: 12px;
@@ -119,21 +120,23 @@
     }
 
     button:hover {
-      background: linear-gradient(to right, #005f99, #008c85);
+      background: linear-gradient(to right, #007acc, #004b8a);
     }
 
     .result-section {
       margin-top: 30px;
     }
 
-    .result-header {
-      background: #e5f4ff;
-      padding: 12px;
-      border-left: 4px solid #00a19c;
-      color: #003366;
+    .result-combined {
+      background: rgba(0, 153, 255, 0.1);
+      padding: 16px;
+      border-left: 5px solid #00cfff;
+      color: #e0faff;
+      border-radius: 10px;
       font-weight: bold;
-      border-radius: 6px;
-      margin-bottom: 16px;
+      margin-bottom: 20px;
+      font-size: 16px;
+      text-align: center;
     }
 
     .tables {
@@ -151,8 +154,8 @@
     table {
       width: 100%;
       border-collapse: collapse;
-      background: #f9fcff;
-      border: 1px solid #c2e0f4;
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255,255,255,0.1);
       border-radius: 8px;
       overflow: hidden;
     }
@@ -164,31 +167,31 @@
     }
 
     th {
-      background-color: #d0ecff;
-      color: #005099;
+      background-color: rgba(173, 216, 230, 0.1);
+      color: #b0dfff;
     }
 
     td {
-      color: #003366;
+      color: #e6f7ff;
     }
 
     .note {
       font-size: 12px;
-      background: #f1fdf7;
-      padding: 12px;
-      border-left: 4px solid #00a19c;
-      color: #004b3c;
+      background: rgba(0,255,255,0.06);
+      padding: 14px;
+      border-left: 4px solid #00cfff;
+      color: #b3ecff;
       border-radius: 6px;
       text-align: justify;
-      margin-top: 16px;
+      margin-top: 18px;
     }
   </style>
 </head>
 <body>
   <div class="container">
     <div class="branding">
-      <div class="logo">SanClass Trading Labs</div>
-      <div class="logo-badge">STL</div>
+      <div class="logo">Sanva Indonesia</div>
+      <div class="logo-badge">Sanva</div>
     </div>
 
     <h2>SANPIV ADVANCE</h2>
@@ -209,27 +212,22 @@
     <button onclick="calculate()">Hitung</button>
 
     <div id="result" class="result-section" style="display: none;">
-      <div class="result-header" id="sessionHeader"></div>
-      <div class="result-header">Pivot Point: <span id="pivotPoint"></span></div>
+      <div class="result-combined" id="pivotSesi"></div>
 
       <div class="tables">
         <table>
-          <thead>
-            <tr><th colspan="2">Target Buy</th></tr>
-          </thead>
+          <thead><tr><th colspan="2">Distribusi</th></tr></thead>
           <tbody>
-            <tr><td>Target Buy</td><td id="targetBuy"></td></tr>
-            <tr><td>Buy Long</td><td id="buyLong"></td></tr>
+            <tr><td>Triger SELL</td><td id="targetBuy"></td></tr>
+            <tr><td>Buy Target</td><td id="buyLong"></td></tr>
           </tbody>
         </table>
 
         <table>
-          <thead>
-            <tr><th colspan="2">Target Sell</th></tr>
-          </thead>
+          <thead><tr><th colspan="2">Akumulasi</th></tr></thead>
           <tbody>
-            <tr><td>Target Sell</td><td id="targetSell"></td></tr>
-            <tr><td>Sell Long</td><td id="sellLong"></td></tr>
+            <tr><td>Triger BUY</td><td id="targetSell"></td></tr>
+            <tr><td>Sell Target</td><td id="sellLong"></td></tr>
           </tbody>
         </table>
       </div>
@@ -251,7 +249,7 @@
       sessions.forEach((s) => {
         if (s.checked) {
           smoothFactor = parseFloat(s.value);
-          kodeNegara = s.nextSibling.nodeValue.trim(); // Ambil teks setelah input
+          kodeNegara = s.nextSibling.nodeValue.trim();
         }
       });
 
@@ -269,8 +267,7 @@
       const targetSell = pp - (range * 0.5);
       const sellLong = pp - (range * 1.618);
 
-      document.getElementById('sessionHeader').textContent = `Sesi = ${kodeNegara}`;
-      document.getElementById('pivotPoint').textContent = pp.toFixed(2);
+      document.getElementById('pivotSesi').textContent = `Pivot Point: ${pp.toFixed(2)} | Sesi: ${kodeNegara}`;
       document.getElementById('targetBuy').textContent = targetBuy.toFixed(2);
       document.getElementById('buyLong').textContent = buyLong.toFixed(2);
       document.getElementById('targetSell').textContent = targetSell.toFixed(2);
