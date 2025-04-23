@@ -3,32 +3,31 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>SANPIV ADVANCE (VTH/VTL/CFS)</title>
+  <title>SANPIV ADVANCE</title>
   <style>
-    body { margin:0; padding:0; background:linear-gradient(to bottom right,#0a0f1a,#121c2a); font-family:'Segoe UI',sans-serif; display:flex; justify-content:center; align-items:center; min-height:100vh; }
-    .container { backdrop-filter:blur(14px); background:rgba(20,30,50,0.4); padding:36px; border-radius:18px; max-width:680px; width:92%; box-shadow:0 10px 40px rgba(0,0,0,0.6); border:1px solid rgba(255,255,255,0.1); }
-    .branding { display:flex; justify-content:space-between; align-items:center; margin-bottom:22px; }
-    .logo { font-size:28px; font-weight:bold; background:linear-gradient(to right,#6dd5fa,#2980b9); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
-    .logo-badge { background:#1b2d40; color:#fff; padding:6px 14px; border-radius:14px; font-weight:bold; font-size:13px; }
-    h2 { text-align:center; color:#e0f7ff; font-size:24px; margin-bottom:24px; display:flex; align-items:center; justify-content:center; }
-    h2::before { content:'🔬'; margin-right:10px; font-size:26px; }
-    label { display:block; margin-bottom:6px; font-size:14px; color:#cceeff; }
-    input[type="number"] { width:100%; padding:10px; margin-bottom:16px; border-radius:12px; border:1px solid #66b2ff; background:rgba(255,255,255,0.07); color:#fff; font-size:14px; }
-    input[type="number"]:focus { background:rgba(255,255,255,0.15); box-shadow:0 0 6px #00bfff; outline:none; }
-    .session-options { display:flex; justify-content:center; gap:20px; margin:16px 0; }
-    .session-options label { display:flex; align-items:center; gap:6px; font-size:14px; color:#d6f4ff; }
-    button { display:block; margin:0 auto; width:auto; padding:12px; background:linear-gradient(to right,#0099ff,#005fa3); color:white; border:none; border-radius:12px; font-size:15px; font-weight:bold; cursor:pointer; transition:0.3s; }
-    button:hover { background:linear-gradient(to right,#007acc,#004b8a); }
-    .result-section { margin-top:30px; }
-    .result-combined { background:rgba(0,153,255,0.1); padding:16px; border-left:5px solid #00cfff; color:#e0faff; border-radius:10px; font-weight:bold; margin-bottom:20px; font-size:16px; text-align:center; }
-    .tables { display:flex; flex-direction:column; gap:20px; }
-    @media (min-width:500px) { .tables { flex-direction:row; } }
-    table { width:100%; border-collapse:collapse; background:rgba(255,255,255,0.07); border:1px solid rgba(255,255,255,0.1); border-radius:8px; overflow:hidden; }
-    th,td { padding:10px; text-align:center; font-size:14px; }
-    th { background-color:rgba(173,216,230,0.1); color:#b0dfff; }
-    td { color:#e6f7ff; }
-    .note { font-size:12px; background:rgba(0,255,255,0.06); padding:14px; border-left:4px solid #00cfff; color:#b3ecff; border-radius:6px; text-align:justify; margin-top:18px; }
-    .signal { margin-top:16px; text-align:center; font-size:16px; font-weight:bold; color:#ffe066; }
+    body { margin: 0; padding: 0; background: linear-gradient(to bottom right, #0a0f1a, #121c2a); font-family: 'Segoe UI', sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+    .container { backdrop-filter: blur(14px); background: rgba(20, 30, 50, 0.4); padding: 36px; border-radius: 18px; max-width: 680px; width: 92%; box-shadow: 0 10px 40px rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.1); }
+    .branding { display: flex; justify-content: space-between; align-items: center; margin-bottom: 22px; }
+    .logo { font-size: 28px; font-weight: bold; background: linear-gradient(to right, #6dd5fa, #2980b9); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .logo-badge { background: #1b2d40; color: #fff; padding: 6px 14px; border-radius: 14px; font-weight: bold; font-size: 13px; }
+    h2 { text-align: center; color: #e0f7ff; font-size: 24px; margin-bottom: 24px; display: flex; align-items: center; justify-content: center; }
+    h2::before { content: '🔬'; margin-right: 10px; font-size: 26px; }
+    label { display: block; margin-bottom: 6px; font-size: 14px; color: #cceeff; }
+    input[type="number"] { width: 100%; padding: 10px; margin-bottom: 16px; border-radius: 12px; border: 1px solid #66b2ff; background: rgba(255, 255, 255, 0.07); color: #ffffff; font-size: 14px; }
+    input[type="number"]:focus { background: rgba(255,255,255,0.15); box-shadow: 0 0 6px #00bfff; outline: none; }
+    .session-options { display: flex; justify-content: center; gap: 20px; margin: 16px 0; }
+    .session-options label { display: flex; align-items: center; gap: 6px; font-size: 14px; color: #d6f4ff; }
+    button { width: 100%; padding: 12px; background: linear-gradient(to right, #0099ff, #005fa3); color: white; border: none; border-radius: 12px; font-size: 15px; font-weight: bold; cursor: pointer; transition: 0.3s; }
+    button:hover { background: linear-gradient(to right, #007acc, #004b8a); }
+    .result-section { margin-top: 30px; }
+    .result-combined { background: rgba(0, 153, 255, 0.1); padding: 16px; border-left: 5px solid #00cfff; color: #e0faff; border-radius: 10px; font-weight: bold; margin-bottom: 20px; font-size: 16px; text-align: center; }
+    .tables { display: flex; flex-direction: column; gap: 20px; }
+    @media (min-width: 500px) { .tables { flex-direction: row; } }
+    table { width: 100%; border-collapse: collapse; background: rgba(255, 255, 255, 0.07); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; overflow: hidden; }
+    th, td { padding: 10px; text-align: center; font-size: 14px; }
+    th { background-color: rgba(173, 216, 230, 0.1); color: #b0dfff; }
+    td { color: #e6f7ff; }
+    .note { font-size: 12px; background: rgba(0,255,255,0.06); padding: 14px; border-left: 4px solid #00cfff; color: #b3ecff; border-radius: 6px; text-align: justify; margin-top: 18px; }
   </style>
 </head>
 <body>
@@ -38,93 +37,102 @@
       <div class="logo-badge">Sanva</div>
     </div>
 
-    <h2>SANPIV ADVANCE</h2>
+    <h2>FIBONACCI IMPULSE</h2>
 
-    <label for="vth">Volatility Factor High (VTH)</label>
-    <input type="number" id="vth" step="0.01" placeholder="Misal: 3386.62">
+    <label for="vf">Volatility Factor (VF)</label>
+    <input type="number" id="vf" step="0.01" placeholder="Contoh: 3245.36">
 
-    <label for="vtl">Volatility Factor Low (VTL)</label>
-    <input type="number" id="vtl" step="0.01" placeholder="Misal: 3313.67">
-
-    <label for="cfs">Close Factor Sesi (CFS)</label>
-    <input type="number" id="cfs" step="0.01" placeholder="Misal: 3319.08">
+    <label for="cf">Close Factor (CF)</label>
+    <input type="number" id="cf" step="0.01" placeholder="Contoh: 3237.53">
 
     <label>Sesi Trading (Pilih Salah Satu):</label>
     <div class="session-options">
-      <label><input type="radio" name="session" value="21"> AS</label>
-      <label><input type="radio" name="session" value="8"> ER</label>
-      <label><input type="radio" name="session" value="13" checked> AM</label>
+      <label><input type="radio" name="session" value="8"> TKY</label>
+      <label><input type="radio" name="session" value="13"> LDN</label>
+      <label><input type="radio" name="session" value="21" checked> NY</label>
     </div>
 
     <button onclick="calculate()">Hitung</button>
 
-    <div id="result" class="result-section" style="display:none;">
-      <div class="result-combined" id="pivotDisplay"></div>
+    <div id="result" class="result-section" style="display: none;">
+      <div class="result-combined" id="pivotSesi"></div>
+
       <div class="tables">
         <table>
           <thead><tr><th colspan="2">Distribusi</th></tr></thead>
           <tbody>
-            <tr><td>Trigger SELL</td><td id="targetBuy"></td></tr>
-            <tr><td>Buy Long</td><td id="buyLong"></td></tr>
+            <tr><td>Ngetriger Bearish</td><td id="targetBuy"></td></tr>
+            
+            <tr><td>Buy Target 1.618</td><td id="buyLong"></td></tr>
+            <tr><td>Buy Target 2.618</td><td id="buyLong2"></td></tr>
+            <tr><td>Buy Target 4.236</td><td id="buyLong3"></td></tr>
           </tbody>
         </table>
+
         <table>
           <thead><tr><th colspan="2">Akumulasi</th></tr></thead>
           <tbody>
-            <tr><td>Trigger BUY</td><td id="targetSell"></td></tr>
-            <tr><td>Sell Long</td><td id="sellLong"></td></tr>
+            <tr><td>Ngetriger Bullish</td><td id="targetSell"></td></tr>
+            
+            <tr><td>Sell Target 1.618</td><td id="sellLong"></td></tr>
+            <tr><td>Sell Target 2.618</td><td id="sellLong2"></td></tr>
+            <tr><td>Sell Target 4.236</td><td id="sellLong3"></td></tr>
           </tbody>
         </table>
       </div>
-      <div class="note">Perhitungan berdasarkan model Sanva Theory (input VTH, VTL, CFS, ditambah logika "Don't Talk" HS & LS).</div>
-      <div id="signal" class="signal"></div>
+
+      <div class="note">
+        Perhitungan berdasarkan model Sanva Theory, disesuaikan dengan sesi trading dan input VF serta CF. Hasil bukan sinyal keuangan, gunakan sebagai referensi analisis tambahan.
+      </div>
     </div>
   </div>
 
   <script>
     function calculate() {
-      const VTH = parseFloat(document.getElementById('vth').value);
-      const VTL = parseFloat(document.getElementById('vtl').value);
-      const CFS = parseFloat(document.getElementById('cfs').value);
-      if (isNaN(VTH) || isNaN(VTL) || isNaN(CFS)) {
-        alert('Masukkan semua nilai (VTH, VTL, CFS) dengan benar.');
-        return;
-      }
-      // Ambil smooth factor dan kode sesi
+      const vf = parseFloat(document.getElementById('vf').value);
+      const cf = parseFloat(document.getElementById('cf').value);
       const sessions = document.getElementsByName('session');
-      let SFS = 0, kodeSesi = '';
-      sessions.forEach(s => {
+      let smoothFactor = 0;
+      let kodeNegara = "";
+
+      sessions.forEach((s) => {
         if (s.checked) {
-          SFS = parseFloat(s.value);
-          kodeSesi = s.nextSibling.nodeValue.trim();
+          smoothFactor = parseFloat(s.value);
+          kodeNegara = s.nextSibling.nodeValue.trim();
         }
       });
-      // Hitung HS & LS sesuai formula "Don't Talk"
-      const HS = VTH - SFS;
-      const LS = VTL + SFS;
-      // Pivot Point dan range
-      const PP = (HS + LS + CFS) / 3;
-      const range = HS - LS;
-      // Hitung level target
-      const targetBuy  = PP + range * 0.5;
-      const buyLong    = PP + range * 1.618;
-      const targetSell = PP - range * 0.5;
-      const sellLong   = PP - range * 1.618;
-      // Tentukan sinyal sentiment berdasarkan CFS (Close)
-      let sentiment = '';
-      if (CFS > HS && CFS > LS) sentiment = 'Bullish';
-      else if (CFS < HS && CFS < LS) sentiment = 'Bearish';
-      else sentiment = 'Konsolidasi';
-      // Tampilkan hasil
-      document.getElementById('pivotDisplay').textContent = `Pivot Point: ${PP.toFixed(2)} | Sesi: ${kodeSesi}`;
-      document.getElementById('targetBuy'   ).textContent = targetBuy.toFixed(2);
-      document.getElementById('buyLong'     ).textContent = buyLong.toFixed(2);
-      document.getElementById('targetSell'  ).textContent = targetSell.toFixed(2);
-      document.getElementById('sellLong'    ).textContent = sellLong.toFixed(2);
-      document.getElementById('signal').textContent = `Sinyal: ${sentiment}`;
+
+      if (isNaN(vf) || isNaN(cf)) {
+        alert("Masukkan VF dan CF yang valid.");
+        return;
+      }
+
+      const hs = vf + smoothFactor;
+      const ls = vf - smoothFactor;
+      const pp = (hs + ls + cf) / 3;
+      const range = hs - ls;
+
+      // Level perhitungan
+      const targetBuy = pp + (range * 0.5);
+      const buyLong = pp + (range * 1.618);
+      const buyLong2 = pp + (range * 2.618);
+      const buyLong3 = pp + (range * 4.236);
+      const targetSell = pp - (range * 0.5);
+      const sellLong = pp - (range * 1.618);
+      const sellLong2 = pp - (range * 2.618);
+      const sellLong3 = pp - (range * 4.236);
+
+      document.getElementById('pivotSesi').textContent = `Pivot Point: ${pp.toFixed(2)} | Sesi: ${kodeNegara}`;
+      document.getElementById('targetBuy').textContent = targetBuy.toFixed(2);
+      document.getElementById('buyLong').textContent = buyLong.toFixed(2);
+      document.getElementById('buyLong2').textContent = buyLong2.toFixed(2);
+      document.getElementById('buyLong3').textContent = buyLong3.toFixed(2);
+      document.getElementById('targetSell').textContent = targetSell.toFixed(2);
+      document.getElementById('sellLong').textContent = sellLong.toFixed(2);
+      document.getElementById('sellLong2').textContent = sellLong2.toFixed(2);
+      document.getElementById('sellLong3').textContent = sellLong3.toFixed(2);
       document.getElementById('result').style.display = 'block';
     }
   </script>
 </body>
 </html>
-
