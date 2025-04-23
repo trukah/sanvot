@@ -17,7 +17,7 @@
     input[type="number"]:focus { background:rgba(255,255,255,0.15); box-shadow:0 0 6px #00bfff; outline:none; }
     .session-options { display:flex; justify-content:center; gap:20px; margin:16px 0; }
     .session-options label { display:flex; align-items:center; gap:6px; font-size:14px; color:#d6f4ff; }
-    button { width:100%; padding:12px; background:linear-gradient(to right,#0099ff,#005fa3); color:white; border:none; border-radius:12px; font-size:15px; font-weight:bold; cursor:pointer; transition:0.3s; }
+    button { display:block; margin:0 auto; width:auto; padding:12px; background:linear-gradient(to right,#0099ff,#005fa3); color:white; border:none; border-radius:12px; font-size:15px; font-weight:bold; cursor:pointer; transition:0.3s; }
     button:hover { background:linear-gradient(to right,#007acc,#004b8a); }
     .result-section { margin-top:30px; }
     .result-combined { background:rgba(0,153,255,0.1); padding:16px; border-left:5px solid #00cfff; color:#e0faff; border-radius:10px; font-weight:bold; margin-bottom:20px; font-size:16px; text-align:center; }
@@ -28,6 +28,7 @@
     th { background-color:rgba(173,216,230,0.1); color:#b0dfff; }
     td { color:#e6f7ff; }
     .note { font-size:12px; background:rgba(0,255,255,0.06); padding:14px; border-left:4px solid #00cfff; color:#b3ecff; border-radius:6px; text-align:justify; margin-top:18px; }
+    .signal { margin-top:16px; text-align:center; font-size:16px; font-weight:bold; color:#ffe066; }
   </style>
 </head>
 <body>
@@ -75,7 +76,8 @@
           </tbody>
         </table>
       </div>
-      <div class="note">Perhitungan berdasarkan model Sanva Theory (input VTH, VTL, CFS, ditambah logika Smoth Factor sesi).</div>
+      <div class="note">Perhitungan berdasarkan model Sanva Theory (input VTH, VTL, CFS, ditambah logika "Don't Talk" HS & LS).</div>
+      <div id="signal" class="signal"></div>
     </div>
   </div>
 
@@ -97,7 +99,7 @@
           kodeSesi = s.nextSibling.nodeValue.trim();
         }
       });
-      // Hitung HS dan LS dengan SFS
+      // Hitung HS & LS sesuai formula "Don't Talk"
       const HS = VTH - SFS;
       const LS = VTL + SFS;
       // Pivot Point dan range
@@ -108,12 +110,18 @@
       const buyLong    = PP + range * 1.618;
       const targetSell = PP - range * 0.5;
       const sellLong   = PP - range * 1.618;
+      // Tentukan sinyal sentiment berdasarkan CFS (Close)
+      let sentiment = '';
+      if (CFS > HS && CFS > LS) sentiment = 'Bullish';
+      else if (CFS < HS && CFS < LS) sentiment = 'Bearish';
+      else sentiment = 'Konsolidasi';
       // Tampilkan hasil
       document.getElementById('pivotDisplay').textContent = `Pivot Point: ${PP.toFixed(2)} | Sesi: ${kodeSesi}`;
       document.getElementById('targetBuy'   ).textContent = targetBuy.toFixed(2);
       document.getElementById('buyLong'     ).textContent = buyLong.toFixed(2);
       document.getElementById('targetSell'  ).textContent = targetSell.toFixed(2);
       document.getElementById('sellLong'    ).textContent = sellLong.toFixed(2);
+      document.getElementById('signal').textContent = `Sinyal: ${sentiment}`;
       document.getElementById('result').style.display = 'block';
     }
   </script>
