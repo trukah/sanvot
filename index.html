@@ -88,8 +88,15 @@
         alert('Masukkan semua nilai (VTH, VTL, CFS) dengan benar.');
         return;
       }
-      let SFS=0, kodeSesi='';
-      document.getElementsByName('session').forEach(s=>{ if(s.checked){ SFS=parseFloat(s.value); kodeSesi=s.nextSibling.nodeValue.trim(); }});
+      // Ambil smooth factor sesi
+      let SFS = 0, kodeSesi = '';
+      document.getElementsByName('session').forEach(s => {
+        if (s.checked) {
+          SFS = parseFloat(s.value);
+          kodeSesi = s.nextSibling.nodeValue.trim();
+        }
+      });
+      // Formula matematika tetap seperti semula
       const HS = VTH - SFS;
       const LS = VTL + SFS;
       const PP = (HS + LS + CFS) / 3;
@@ -98,28 +105,31 @@
       const buyLong    = PP + range * 1.618;
       const targetSell = PP - range * 0.5;
       const sellLong   = PP - range * 1.618;
-      // Background dan lighting berdasarkan kondisi
-      let bgColor, glowColor;
-      if (CFS > PP) {
-        bgColor = 'rgba(0,255,0,0.2)';   // hijau lembut
-        glowColor = 'rgba(0,255,0,0.6)';  // green glow
-      } else if (CFS < PP) {
-        bgColor = 'rgba(255,0,0,0.2)';   // merah lembut
-        glowColor = 'rgba(255,0,0,0.6)';  // red glow
-      } else {
-        bgColor = 'rgba(255,255,0,0.2)'; // kuning lembut
-        glowColor = 'rgba(255,255,0,0.6)';// yellow glow
-      }
+      // Visualisasi pivotDisplay berdasarkan kondisi
       const pivotEl = document.getElementById('pivotDisplay');
       pivotEl.textContent = `Pivot Point: ${PP.toFixed(2)} | Sesi: ${kodeSesi}`;
+      // Atur warna dan lighting
+      let bgColor, glow;
+      if (CFS > PP) {
+        bgColor = 'rgba(0,102,255,0.25)';    // biru lembut
+        glow    = '0 0 20px rgba(0,255,0,0.6)'; // lighting hijau
+      } else if (CFS < PP) {
+        bgColor = 'rgba(255,0,0,0.25)';      // merah lembut
+        glow    = '0 0 20px rgba(255,0,0,0.6)'; // lighting merah
+      } else {
+        bgColor = 'rgba(255,255,0,0.25)';    // kuning lembut
+        glow    = '0 0 20px rgba(255,255,0,0.6)'; // lighting kuning
+      }
       pivotEl.style.backgroundColor = bgColor;
-      pivotEl.style.boxShadow = `0 0 10px ${glowColor}`;
-      document.getElementById('targetBuy').textContent   = targetBuy.toFixed(2);
-      document.getElementById('buyLong').textContent     = buyLong.toFixed(2);
-      document.getElementById('targetSell').textContent  = targetSell.toFixed(2);
-      document.getElementById('sellLong').textContent    = sellLong.toFixed(2);
-      document.getElementById('result').style.display    = 'block';
+      pivotEl.style.boxShadow = glow;
+      // Tampilkan levels
+      document.getElementById('targetBuy'  ).textContent = targetBuy.toFixed(2);
+      document.getElementById('buyLong'    ).textContent = buyLong.toFixed(2);
+      document.getElementById('targetSell').textContent = targetSell.toFixed(2);
+      document.getElementById('sellLong'   ).textContent = sellLong.toFixed(2);
+      document.getElementById('result'     ).style.display = 'block';
     }
   </script>
 </body>
-</html>
+  </html>
+          
