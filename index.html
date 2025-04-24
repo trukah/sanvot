@@ -600,17 +600,10 @@
              return;
         }
 
-        // --- Menghitung Posisi Persentase CF untuk Penempatan Visual Marker ---
-        // Formula: ((CF - LS) / (HS - LS)) * 100
-        // Formula ini menghitung di mana posisi CF berada dalam rentang LS ke HS,
-        // di mana LS dianggap 0% dan HS dianggap 100% pada garis visual.
-        // Ini adalah persentase matematis, bisa kurang dari 0% atau lebih dari 100%
-        // jika CF berada di luar rentang LS-HS.
+
+        // jika CF berada di luar rentang pp - cf.
         let visualPositionPercent = ((pp - cf) / range) * 100;
 
-        // --- Menghitung Persentase Sentimen untuk Teks Label (Sesuai Permintaan User) ---
-        // Formula: ((CF - PP) / (HS - LS)) * 100
-        // Formula ini menghitung posisi CF relatif terhadap PP, diskalakan oleh Range.
         // Hasil ini digunakan KHUSUS untuk teks label di bawah marker.
         let sentimentPercentageForLabel = ((pp - cf) / range) * 100;
 
