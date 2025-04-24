@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <title>Repeatable</title>
+  <title>Repeatable QuantAI</title>
   <style>
     /* Reset & Base */
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -13,9 +13,10 @@
       font-family: 'Segoe UI', sans-serif;
       display: flex;
       justify-content: center;
-      align-items: flex-start;
+      align-items: flex-start; /* Align items to the top */
       padding: 1rem;
       color: #e0faff;
+      min-height: 100vh; /* Ensure body takes at least full viewport height */
     }
     .container {
       width: 100%;
@@ -24,11 +25,12 @@
       backdrop-filter: blur(12px);
       border: 1px solid rgba(51,204,255,0.2);
       border-radius: 18px;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.6);
+      box-shadow: 0 0 20px rgba(51,204,255,0.6);
       padding: 1.5rem;
       display: flex;
       flex-direction: column;
       gap: 1rem;
+      margin-bottom: 2rem; /* Add some margin at the bottom */
     }
     .branding {
       display: flex;
@@ -59,11 +61,13 @@
       align-items: center;
       gap: 0.5rem;
     }
-    h2::before { content: '🔬'; font-size: 1.75rem; }
+    h2::before { content: '🔬'; font-size: 1.75rem; } /* Microscope icon */
+
     label {
       font-size: 0.875rem;
       margin-bottom: 0.25rem;
       color: #aaddff;
+      display: block; /* Make label a block element for better spacing */
     }
     input[type="number"] {
       width: 100%;
@@ -74,6 +78,13 @@
       color: #e0faff;
       font-size: 0.875rem;
       transition: background 0.3s;
+      -moz-appearance: textfield; /* Hide arrows in Firefox */
+    }
+    /* Hide arrows in Chrome, Safari, Edge */
+    input[type="number"]::-webkit-outer-spin-button,
+    input[type="number"]::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
     }
     input[type="number"]:focus {
       background: rgba(255,255,255,0.15);
@@ -93,7 +104,12 @@
       gap: 0.25rem;
       font-size: 0.875rem;
       color: #b2e6ff;
+      cursor: pointer; /* Indicate radio buttons are interactive */
     }
+     .session-options input[type="radio"] {
+        margin-right: 0.25rem; /* Add space between radio and text */
+     }
+
     button {
       width: 100%;
       padding: 0.75rem;
@@ -111,9 +127,10 @@
       background: linear-gradient(to right, #00aaff, #004466);
     }
     .result-section {
-      display: none;
+      display: none; /* Hidden by default */
       flex-direction: column;
       gap: 1rem;
+      margin-top: 1rem; /* Add space above results */
     }
     .result-combined {
       background: rgba(0, 204, 255, 0.1);
@@ -123,7 +140,35 @@
       font-weight: bold;
       text-align: center;
       font-size: 1rem;
+      box-shadow: 0 0 10px rgba(51,204,255,0.4);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
     }
+    .result-combined span {
+        display: inline-block;
+        /* Add some padding for better touch targets on mobile */
+        padding: 0.25rem 0.5rem;
+    }
+
+    /* Style for the sentiment signal icon (using emoji) */
+    .sentiment-signal-icon {
+        display: inline-block;
+        font-size: 1.5rem; /* Size of the light icon */
+        line-height: 1;
+        margin-left: 0.5rem;
+        vertical-align: middle;
+        text-shadow: 0 0 8px rgba(255,255,255,0.6);
+        filter: drop-shadow(0 0 5px rgba(255,255,255,0.4));
+    }
+    /* Colors for the signal icon based on sentiment */
+    .signal-be { color: #ef4444; filter: drop-shadow(0 0 5px rgba(239, 68, 68, 0.6)); } /* Red */
+    .signal-k { color: #facc15; filter: drop-shadow(0 0 5px rgba(250, 204, 21, 0.6)); } /* Yellow */
+    .signal-bu { color: #22c55e; filter: drop-shadow(0 0 5px rgba(34, 197, 94, 0.6)); } /* Green */
+
+
     .tables {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -136,18 +181,27 @@
       background: rgba(255,255,255,0.05);
       border-radius: 0.5rem;
       overflow: hidden;
+      box-shadow: 0 0 10px rgba(51,204,255,0.4);
     }
     th, td {
       padding: 0.75rem;
       text-align: center;
       font-size: 0.875rem;
       border-bottom: 1px solid rgba(255,255,255,0.1);
+      color: #e0faff;
     }
     thead th { border-bottom: 2px solid rgba(255,255,255,0.2); }
-    .table-distribusi th { background-color: rgba(255,127,80,0.2); color: #ff9f6e; }
-    .table-distribusi td { color: #ffcbb3; }
-    .table-akumulasi th { background-color: rgba(0,255,160,0.2); color: #aaffc3; }
-    .table-akumulasi td { color: #ccffee; }
+
+    /* Table headers colored by sentiment type */
+    .table-distribusi th {
+        background-color: rgba(239, 68, 68, 0.5); /* Red (BE) with opacity */
+        color: #ef4444; /* Red text */
+    }
+    .table-akumulasi th {
+        background-color: rgba(34, 197, 94, 0.5); /* Green (BU) with opacity */
+        color: #22c55e; /* Green text */
+    }
+
     .note {
       font-size: 0.8125rem;
       background: rgba(0,255,255,0.04);
@@ -155,7 +209,150 @@
       border-left: 4px solid #33ccff;
       border-radius: 0.5rem;
       text-align: justify;
+      box-shadow: 0 0 10px rgba(51,204,255,0.4);
     }
+
+    /* CSS for Sentiment Visualization Area */
+    #sentiment_visualization_area {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        background: rgba(51,204,255,0.05);
+        border: 1px solid rgba(51,204,255,0.1);
+        border-radius: 0.75rem;
+        padding: 1rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+        opacity: 0; /* Hidden by default */
+        transform: translateY(10px);
+        pointer-events: none;
+        transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+        box-shadow: 0 0 10px rgba(51,204,255,0.4);
+    }
+    #sentiment_visualization_area.visualization-visible {
+        opacity: 1;
+        transform: translateY(0);
+        pointer-events: auto;
+    }
+
+    .sentiment-line-container {
+        position: relative;
+        width: 100%;
+        height: 30px; /* Container height for the line and marker */
+        padding: 0 10px; /* Padding to give space for marker at ends */
+        display: flex;
+        align-items: center; /* Vertically center the line */
+        background: none;
+        border: none;
+        border-radius: 0;
+        box-shadow: none;
+    }
+    .sentiment-line {
+        position: static; /* Let the line flow naturally within flex container */
+        flex-grow: 1; /* Make the line fill the container width minus padding */
+        height: 8px;
+        border-radius: 4px;
+        /* Gradient color: BE 40%, K 20%, BU 40% */
+        background: linear-gradient(to right,
+            #ef4444 0%,     /* Red (BE) start */
+            #ef4444 40%,    /* Red (BE) end */
+            #facc15 40%,    /* Yellow (K) start */
+            #facc15 60%,    /* Yellow (K) end (40% + 20%) */
+            #22c55e 60%,    /* Green (BU) start */
+            #22c55e 100%    /* Green (BU) end */
+        );
+        box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+    }
+    /* Style for the CF marker (●) */
+    .cf-marker {
+        position: absolute; /* Absolute positioning relative to .sentiment-line-container */
+        top: 50%; /* Center vertically */
+        transform: translate(-50%, -50%); /* Adjust position to truly center the marker */
+        font-size: 1.2rem;
+        line-height: 1;
+        transition: left 0.5s ease-in-out, color 0.3s ease-in-out;
+        z-index: 10;
+        text-shadow: 0 0 5px rgba(51,204,255,0.5);
+    }
+    /* Style for the percentage text below the marker */
+    .cf-percentage-text {
+        position: absolute; /* Absolute positioning relative to .sentiment-line-container */
+        top: 100%; /* Position below the container */
+        margin-top: 5px; /* Space below the line container */
+        font-size: 0.8rem;
+        font-weight: 600;
+        transform: translateX(-50%); /* Center the text horizontally relative to its left edge */
+        transition: left 0.5s ease-in-out, color 0.3s ease-in-out;
+        white-space: nowrap;
+        background-color: rgba(0, 49, 74, 0.9);
+        color: #e0faff !important; /* Ensure text color is bright */
+        padding: 2px 6px;
+        border-radius: 4px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+        z-index: 5;
+        border: 1px solid rgba(51,204,255,0.1);
+    }
+
+    /* Dynamic color classes for marker and text based on sentiment zone */
+    .marker-be, .text-be { color: #ef4444; } /* Red */
+    .marker-k, .text-k { color: #facc15; } /* Yellow */
+    .marker-bu, .text-bu { color: #22c55e; } /* Green */
+
+    /* CSS for Collapsible Info Card */
+    .info-card {
+        background: rgba(51,204,255,0.05);
+        border: 1px solid rgba(51,204,255,0.1);
+        border-radius: 0.75rem;
+        overflow: hidden;
+        box-shadow: 0 0 10px rgba(51,204,255,0.4);
+        margin-bottom: 1rem;
+    }
+
+    .info-card-header {
+        padding: 0.75rem 1.5rem;
+        background: rgba(51,204,255,0.1);
+        color: #ccf2ff;
+        font-weight: bold;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        transition: background 0.3s ease;
+    }
+
+    .info-card-header:hover {
+        background: rgba(51,204,255,0.2);
+    }
+
+    .info-card-header .arrow {
+        transition: transform 0.3s ease;
+    }
+
+    .info-card-header.expanded .arrow {
+        transform: rotate(180deg);
+    }
+
+    .info-card-content {
+        padding: 0 1.5rem;
+        max-height: 0; /* Initially hidden */
+        overflow: hidden;
+        transition: max-height 0.3s ease-out, padding 0.3s ease-out;
+        color: #b2e6ff;
+        text-align: justify;
+    }
+
+    .info-card-content.expanded {
+        max-height: 500px; /* Sufficient height for content */
+        padding: 1rem 1.5rem;
+    }
+     .info-card-content p {
+         margin-bottom: 0.5rem; /* Space between paragraphs in info card */
+     }
+     .info-card-content p:last-child {
+         margin-bottom: 0; /* No margin after the last paragraph */
+     }
+
   </style>
 </head>
 <body>
@@ -165,6 +362,21 @@
       <div class="logo-badge">SanClass</div>
     </div>
     <h2>Intermatika</h2>
+
+    <div class="info-card" id="infoCard">
+        <div class="info-card-header" id="infoCardHeader">
+            <span>Informasi Penting / Cara Penggunaan</span>
+            <span class="arrow">▼</span>
+        </div>
+        <div class="info-card-content" id="infoCardContent">
+            <p>Masukkan nilai Volatility Factor (VF) dan Close Factor (CF) pada kolom yang tersedia.</p>
+            <p>Pilih Sesi Trading (TKY, LDN, atau NY) yang sesuai. Pilihan sesi ini akan menentukan nilai Smooth Factor (SF).</p>
+            <p>Klik tombol "Hitung" untuk menampilkan hasil analisis berdasarkan Sanva Theory.</p>
+            <p>Hasil akan menampilkan Pivot Point (PP), Sesi, Sinyal Sentimen, Visualisasi Sentimen, serta tabel Distribusi dan Akumulasi pada level-level kunci.</p>
+            <p>Analisis ini bersifat eksperimental dan bukan merupakan nasihat keuangan. Selalu gunakan manajemen risiko.</p>
+        </div>
+    </div>
+
     <div>
       <label for="vf">Volatility Factor (VF)</label>
       <input type="number" id="vf" step="0.01" placeholder="Contoh: 3245.36">
@@ -181,59 +393,330 @@
         <label><input type="radio" name="session" value="21" checked> NY</label>
       </div>
     </div>
+
     <button type="button" onclick="calculate()">Hitung</button>
+
     <div id="result" class="result-section">
-      <div class="result-combined" id="pivotSesi"></div>
+      <div class="result-combined" id="pivotSesi">
+          </div>
+
+      <div id="sentiment_visualization_area" class="visualization-hidden">
+          <div class="sentiment-line-container">
+              <div class="sentiment-line"></div>
+              <span id="cf_marker" class="cf-marker">●</span>
+              <span id="cf_percentage" class="cf-percentage-text">0%</span>
+          </div>
+      </div>
+
       <div class="tables">
         <table class="table-distribusi">
-          <thead><tr><th colspan="2">Distribusi</th></tr></thead>
+          <thead><tr><th colspan="2">Distribusi (PP + R * M)</th></tr></thead>
           <tbody>
-            <tr><td>Trigger Sell</td><td id="dist0_5"></td></tr>
-            <tr><td>Target Buyer</td><td id="dist1_618"></td></tr>
+            <tr><td>Trigger Sell (M=0.5)</td><td id="dist0_5"></td></tr>
+            <tr><td>Target Buyer (M=1.618)</td><td id="dist1_618"></td></tr>
             <tr><td>Levels 2.618</td><td id="dist2_618"></td></tr>
             <tr><td>Levels 4.236</td><td id="dist4_236"></td></tr>
           </tbody>
         </table>
         <table class="table-akumulasi">
-          <thead><tr><th colspan="2">Akumulasi</th></tr></thead>
+          <thead><tr><th colspan="2">Akumulasi (PP - R * M)</th></tr></thead>
           <tbody>
-            <tr><td>Trigger Buy</td><td id="acc0_5"></td></tr>
-            <tr><td>Target Sell</td><td id="acc1_618"></td></tr>
+            <tr><td>Trigger Buy (M=0.5)</td><td id="acc0_5"></td></tr>
+            <tr><td>Target Sell (M=1.618)</td><td id="acc1_618"></td></tr>
             <tr><td>Levels 2.618</td><td id="acc2_618"></td></tr>
             <tr><td>Levels 4.236</td><td id="acc4_236"></td></tr>
           </tbody>
         </table>
       </div>
+
       <div class="note">
-        Perhitungan berdasarkan model Sanva Theory, sesuaikan sesi dan input VF & CF. Hasil bukan sinyal keuangan.
+        Perhitungan berdasarkan model Sanva Theory. Sesuaikan sesi dan input VF & CF dengan data yang relevan. Hasil ini bersifat informatif dan eksperimental, bukan merupakan sinyal keuangan atau nasihat investasi. Selalu terapkan manajemen risiko dan lakukan analisis mandiri sebelum mengambil keputusan trading.
       </div>
     </div>
   </div>
+
   <script>
+    // Variabel untuk menyimpan nilai LS, HS, CF, PP terakhir yang dihitung
+    // Digunakan untuk memperbarui visualisasi saat ukuran jendela berubah
+    let lastCalculatedLS = null;
+    let lastCalculatedHS = null;
+    let lastCalculatedCF = null;
+    let lastCalculatedPP = null;
+
+    // Fungsi utama untuk melakukan perhitungan dan menampilkan hasil
     function calculate() {
+      // Mengambil nilai input VF dan CF
       const vf = parseFloat(document.getElementById('vf').value);
       const cf = parseFloat(document.getElementById('cf').value);
+
+      // Mengambil nilai Smooth Factor (SF) dari pilihan sesi radio button
       const sessions = document.querySelectorAll('input[name="session"]');
       let smoothFactor = 0;
-      let kodeNegara = '';
-      sessions.forEach(s => { if (s.checked) { smoothFactor = parseFloat(s.value); kodeNegara = s.parentElement.textContent.trim(); }});
-      if (isNaN(vf) || isNaN(cf)) { alert('Masukkan VF dan CF yang valid.'); return; }
+      let kodeNegara = ''; // Untuk menampilkan kode sesi (TKY, LDN, NY)
+      sessions.forEach(s => {
+          if (s.checked) {
+              smoothFactor = parseFloat(s.value);
+              // Mengambil teks label dari radio button yang dipilih
+              kodeNegara = s.parentElement.textContent.trim();
+          }
+      });
+
+      // Validasi input: Pastikan VF dan CF adalah angka yang valid
+      if (isNaN(vf) || isNaN(cf)) {
+        // Menggunakan pesan box sederhana sebagai pengganti alert()
+        showMessageBox('Masukkan nilai VF dan CF yang valid.');
+        // Sembunyikan area hasil jika input tidak valid
+        document.getElementById('result').style.display = 'none';
+        // Sembunyikan visualisasi sentimen
+        const visualizationArea = document.getElementById('sentiment_visualization_area');
+        if (visualizationArea) {
+             visualizationArea.classList.remove('visualization-visible');
+             visualizationArea.classList.add('visualization-hidden');
+        }
+        // Kosongkan card pivot
+        document.getElementById('pivotSesi').innerHTML = '';
+        // Reset nilai terakhir
+        lastCalculatedLS = null;
+        lastCalculatedHS = null;
+        lastCalculatedCF = null;
+        lastCalculatedPP = null;
+        return; // Hentikan eksekusi fungsi
+      }
+
+      // --- Logika Perhitungan Sanva Theory ---
+      // Menghitung High Session (HS) dan Low Session (LS)
       const hs = vf + smoothFactor;
       const ls = vf - smoothFactor;
+
+      // Menghitung Pivot Point (PP)
       const pp = (hs + ls + cf) / 3;
+
+      // Menghitung Range (R)
       const range = hs - ls;
-      const calcNode = (mult) => (pp + range * mult).toFixed(2);
-      document.getElementById('pivotSesi').textContent = `Pivot Point: ${pp.toFixed(2)} | Sesi: ${kodeNegara}`;
-      document.getElementById('dist0_5').textContent  = calcNode(0.5);
-      document.getElementById('dist1_618').textContent = calcNode(1.618);
-      document.getElementById('dist2_618').textContent = calcNode(2.618);
-      document.getElementById('dist4_236').textContent = calcNode(4.236);
-      document.getElementById('acc0_5').textContent  = (pp - range * 0.5).toFixed(2);
-      document.getElementById('acc1_618').textContent = (pp - range * 1.618).toFixed(2);
-      document.getElementById('acc2_618').textContent = (pp - range * 2.618).toFixed(2);
-      document.getElementById('acc4_236').textContent = (pp - range * 4.236).toFixed(2);
+
+      // Simpan nilai LS, HS, CF, PP yang baru dihitung untuk penggunaan saat resize dan visualisasi
+      lastCalculatedLS = ls;
+      lastCalculatedHS = hs;
+      lastCalculatedCF = cf;
+      lastCalculatedPP = pp;
+
+      // --- Menentukan Sinyal Sentimen (SI) sesuai logika yang diminta ---
+      // Logika sinyal sesuai permintaan user:
+      // Bullish: CF di atas LS DAN di atas HS
+      // Bearish: CF di bawah LS DAN di bawah HS
+      // Konsolidasi: CF di antara LS dan HS (termasuk LS dan HS)
+      let sentimentSignalClass = ''; // Kelas CSS untuk ikon sinyal
+      let sentimentText = ''; // Teks sentimen
+
+      if (cf > ls && cf > hs) { // Logika Bullish sesuai permintaan user
+          sentimentSignalClass = 'signal-bu'; // Hijau
+          sentimentText = 'Bullish';
+      } else if (cf < ls && cf < hs) { // Logika Bearish sesuai permintaan user
+          sentimentSignalClass = 'signal-be'; // Merah
+          sentimentText = 'Bearish';
+      } else { // Jika tidak Bullish atau Bearish, berarti Konsolidasi
+          sentimentSignalClass = 'signal-k'; // Kuning
+          sentimentText = 'Konsolidasi';
+      }
+
+
+      // --- Menampilkan Hasil di Card Utama (PP, Sesi, Sinyal) ---
+      const pivotSesiElement = document.getElementById('pivotSesi');
+      // Menambahkan teks sentimen ke dalam card
+      pivotSesiElement.innerHTML = `
+          <span>PP: ${pp.toFixed(2)}</span>
+          <span>Sesi: ${kodeNegara}</span>
+          <span>Sinyal: ${sentimentText} <span class="sentiment-signal-icon ${sentimentSignalClass}">●</span></span>
+      `;
+
+      // --- Menghitung dan Menampilkan Tabel Distribusi (DI) dan Akumulasi (AK) ---
+      // Fungsi helper untuk menghitung level dengan multiplier tertentu
+      const calcNode = (ppValue, rangeValue, multiplier, operation) => {
+          // Pastikan rangeValue bukan nol untuk menghindari pembagian dengan nol
+          if (rangeValue === 0) {
+              // Jika range 0, level distribusi/akumulasi sama dengan PP
+              return ppValue.toFixed(2);
+          }
+          if (operation === '+') {
+              return (ppValue + rangeValue * multiplier).toFixed(2);
+          } else if (operation === '-') {
+              return (ppValue - rangeValue * multiplier).toFixed(2);
+          }
+          return 'Error'; // Should not happen
+      };
+
+      // Multiplier yang digunakan
+      const multipliers = {
+          '0.5': 0.5,
+          '1.618': 1.618,
+          '2.618': 2.618,
+          '4.236': 4.236
+      };
+
+      // Mengisi tabel Distribusi (PP + R * M)
+      document.getElementById('dist0_5').textContent  = calcNode(pp, range, multipliers['0.5'], '+');
+      document.getElementById('dist1_618').textContent = calcNode(pp, range, multipliers['1.618'], '+');
+      document.getElementById('dist2_618').textContent = calcNode(pp, range, multipliers['2.618'], '+');
+      document.getElementById('dist4_236').textContent = calcNode(pp, range, multipliers['4.236'], '+');
+
+      // Mengisi tabel Akumulasi (PP - R * M)
+      document.getElementById('acc0_5').textContent  = calcNode(pp, range, multipliers['0.5'], '-');
+      document.getElementById('acc1_618').textContent = calcNode(pp, range, multipliers['1.618'], '-');
+      document.getElementById('acc2_618').textContent = calcNode(pp, range, multipliers['2.618'], '-');
+      // Menggunakan ID yang sudah diperbaiki: acc4_236
+      document.getElementById('acc4_236').textContent = calcNode(pp, range, multipliers['4.236'], '-');
+
+      // Tampilkan area hasil utama jika belum terlihat
       document.getElementById('result').style.display = 'flex';
+
+      // --- Panggil fungsi untuk memperbarui visualisasi sentimen ---
+      // Menggunakan LS, HS, CF, dan PP untuk perhitungan visualisasi
+      updateSentimentVisualization(lastCalculatedLS, lastCalculatedHS, lastCalculatedCF, lastCalculatedPP);
     }
+
+    // --- Fungsi untuk Visualisasi Sentimen (Garis Gradien dengan Marker) ---
+    // Fungsi ini menghitung posisi CF relatif terhadap rentang LS-HS dalam persentase untuk penempatan visual,
+    // DAN menghitung persentase sentimen berdasarkan formula user untuk teks label.
+    function updateSentimentVisualization(ls, hs, cf, pp) {
+        // Mendapatkan elemen-elemen visualisasi
+        const visualizationArea = document.getElementById('sentiment_visualization_area');
+        const cfMarker = document.getElementById('cf_marker');
+        const cfPercentageText = document.getElementById('cf_percentage');
+        const sentimentLineContainer = visualizationArea ? visualizationArea.querySelector('.sentiment-line-container') : null;
+
+        // Pastikan elemen-elemen ada dan data valid sebelum melanjutkan
+        if (!visualizationArea || !cfMarker || !cfPercentageText || !sentimentLineContainer || isNaN(ls) || isNaN(hs) || isNaN(cf) || isNaN(pp)) {
+             // Sembunyikan visualisasi jika ada masalah
+             visualizationArea.classList.remove('visualization-visible');
+             visualizationArea.classList.add('visualization-hidden');
+             return;
+        }
+
+        const range = hs - ls;
+         // Jika range nol, sembunyikan visualisasi karena tidak ada rentang LS-HS
+        if (range === 0) {
+             visualizationArea.classList.remove('visualization-visible');
+             visualizationArea.classList.add('visualization-hidden');
+             return;
+        }
+
+        // --- Menghitung Posisi Persentase CF untuk Penempatan Visual Marker ---
+        // Formula: ((CF - LS) / (HS - LS)) * 100
+        // Formula ini menghitung di mana posisi CF berada dalam rentang LS ke HS,
+        // di mana LS dianggap 0% dan HS dianggap 100% pada garis visual.
+        // Ini adalah persentase matematis, bisa kurang dari 0% atau lebih dari 100%
+        // jika CF berada di luar rentang LS-HS.
+        let visualPositionPercent = ((pp - cf) / range) * 100;
+
+        // --- Menghitung Persentase Sentimen untuk Teks Label (Sesuai Permintaan User) ---
+        // Formula: ((CF - PP) / (HS - LS)) * 100
+        // Formula ini menghitung posisi CF relatif terhadap PP, diskalakan oleh Range.
+        // Hasil ini digunakan KHUSUS untuk teks label di bawah marker.
+        let sentimentPercentageForLabel = ((pp - cf) / range) * 100;
+
+
+        // --- Menentukan Warna Marker berdasarkan Posisi CF (Sinyal Sentimen) ---
+        // Warna marker mengikuti logika sinyal (BE, K, BU) sesuai permintaan user
+        let colorClass = '';
+        if (cf > ls && cf > hs) { // Logika Bullish sesuai permintaan user
+            colorClass = 'bu'; // Hijau
+        } else if (cf < ls && cf < hs) { // Logika Bearish sesuai permintaan user
+            colorClass = 'be'; // Merah
+        } else { // Jika tidak Bullish atau Bearish, berarti Konsolidasi
+            colorClass = 'k'; // Kuning
+        }
+
+        // --- Memperbarui Posisi Marker dan Teks pada Garis Visual ---
+
+        // Mendapatkan lebar kontainer garis untuk perhitungan piksel
+        const containerRect = sentimentLineContainer.getBoundingClientRect();
+        const containerWidth = containerRect.width;
+        const linePadding = 10; // Padding horizontal di CSS container
+        const lineWidth = containerWidth - 2 * linePadding; // Lebar area garis berwarna yang sebenarnya
+
+        // Menghitung posisi piksel marker relatif terhadap lebar garis berwarna [0, lineWidth]
+        // Menggunakan visualPositionPercent untuk penempatan visual
+        let calculatedPixelPositionInLine = (visualPositionPercent / 100) * lineWidth;
+
+        // Batasi posisi piksel agar berada di dalam rentang piksel garis berwarna [0, lineWidth]
+        // Ini penting agar marker tidak keluar dari garis visual, meskipun persentase matematisnya < 0 atau > 100
+        const clampedPixelPositionInLine = Math.max(0, Math.min(lineWidth, calculatedPixelPositionInLine));
+
+        // Menghitung posisi 'left' final untuk marker relatif terhadap kontainer garis
+        // Posisi 0px pada garis berwarna dimulai setelah padding kiri kontainer
+        const finalMarkerLeftPosition = linePadding + clampedPixelPositionInLine;
+
+        // Menerapkan posisi 'left' ke marker dan teks persentase
+        cfMarker.style.left = `${finalMarkerLeftPosition}px`;
+        // Posisikan teks persentase sedikit di bawah marker
+        cfPercentageText.style.left = `${finalMarkerLeftPosition}px`;
+
+
+        // Menerapkan kelas warna ke marker dan teks persentase
+        cfMarker.className = `cf-marker marker-${colorClass}`;
+        cfPercentageText.className = `cf-percentage-text text-${colorClass}`;
+
+        // Memperbarui teks persentase di bawah marker menggunakan formula user
+        let percentageLabel = `${sentimentPercentageForLabel.toFixed(1)}%`;
+        cfPercentageText.innerHTML = percentageLabel;
+
+        // Tampilkan area visualisasi jika belum terlihat
+        if (!visualizationArea.classList.contains('visualization-visible')) {
+             visualizationArea.classList.remove('visualization-hidden');
+             visualizationArea.classList.add('visualization-visible');
+        }
+    }
+    // --- Akhir Fungsi Visualisasi Sentimen ---
+
+    // --- Fungsi untuk Menampilkan Pesan Box Sederhana (pengganti alert) ---
+    function showMessageBox(message) {
+        // Implementasi pesan box sederhana (bisa menggunakan div modal, dll.)
+        // Untuk saat ini, menggunakan alert() sebagai fallback atau placeholder
+        // Di lingkungan produksi, sebaiknya ganti dengan modal dialog kustom
+        alert(message);
+    }
+    // --- Akhir Fungsi Pesan Box ---
+
+
+    // --- JavaScript untuk Card Informasi Collapsible ---
+    document.addEventListener('DOMContentLoaded', function() {
+        const infoCardHeader = document.getElementById('infoCardHeader');
+        const infoCardContent = document.getElementById('infoCardContent');
+
+        if (infoCardHeader && infoCardContent) {
+            infoCardHeader.addEventListener('click', function() {
+                const isExpanded = infoCardContent.classList.contains('expanded');
+                if (isExpanded) {
+                    // Tutup card
+                    infoCardContent.classList.remove('expanded');
+                    infoCardHeader.classList.remove('expanded');
+                } else {
+                    // Buka card
+                    infoCardContent.classList.add('expanded');
+                    infoCardHeader.classList.add('expanded');
+                }
+            });
+        }
+    });
+    /* --- Akhir JavaScript Card Informasi Collapsible --- */
+
+
+    // Tambahkan event listener untuk resize window
+    // Ini penting agar posisi marker dihitung ulang jika ukuran layar berubah
+    window.addEventListener('resize', () => {
+        // Panggil updateSentimentVisualization dengan nilai LS, HS, CF, PP terakhir yang disimpan
+        // Hanya perbarui jika nilai terakhir ada dan visualisasi terlihat
+        const visualizationArea = document.getElementById('sentiment_visualization_area');
+        if (visualizationArea && visualizationArea.classList.contains('visualization-visible') &&
+            lastCalculatedLS !== null && lastCalculatedHS !== null && lastCalculatedCF !== null && lastCalculatedPP !== null) {
+            updateSentimentVisualization(lastCalculatedLS, lastCalculatedHS, lastCalculatedCF, lastCalculatedPP);
+        }
+    });
+
+    // Opsional: Panggil calculate() saat halaman dimuat untuk menampilkan hasil awal
+    // jika input default terisi atau jika kamu ingin hasil langsung muncul.
+    // calculate();
+
   </script>
 </body>
 </html>
