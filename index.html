@@ -1,1 +1,317 @@
 
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SANPIV ADVANCE</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to bottom right, #001f3f, #00334d); /* Dark water gradient */
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      backdrop-filter: blur(16px);
+      background: rgba(0, 26, 51, 0.7);
+      padding: 36px;
+      border-radius: 18px;
+      max-width: 680px;
+      width: 92%;
+      box-shadow: 0 12px 48px rgba(0,0,0,0.7);
+      border: 1px solid rgba(51,204,255,0.2);
+    }
+
+    .branding {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+
+    .logo {
+      font-size: 30px;
+      font-weight: bold;
+      background: linear-gradient(to right, #33ccff, #006699);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .logo-badge {
+      background: #00475a;
+      color: #33ccff;
+      padding: 6px 16px;
+      border-radius: 14px;
+      font-weight: bold;
+      font-size: 13px;
+    }
+
+    h2 {
+      text-align: center;
+      color: #ccf2ff;
+      font-size: 26px;
+      margin-bottom: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    h2::before {
+      content: '🔬';
+      margin-right: 10px;
+      font-size: 28px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 15px;
+      color: #aaddff;
+    }
+
+    input[type="number"] {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 18px;
+      border-radius: 12px;
+      border: 1px solid #33ccff;
+      background: rgba(255, 255, 255, 0.05);
+      color: #e0faff;
+      font-size: 15px;
+      transition: background 0.3s;
+    }
+
+    input[type="number"]:focus {
+      background: rgba(255,255,255,0.15);
+      box-shadow: 0 0 12px #33ccff;
+      outline: none;
+    }
+
+    .session-options {
+      display: flex;
+      justify-content: center;
+      gap: 22px;
+      margin: 18px 0;
+    }
+
+    .session-options label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 15px;
+      color: #b2e6ff;
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(to right, #33ccff, #006699);
+      color: white;
+      border: none;
+      border-radius: 14px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+      box-shadow: 0 4px 20px rgba(51,204,255,0.4);
+    }
+
+    button:hover {
+      background: linear-gradient(to right, #00aaff, #004466);
+    }
+
+    .result-section {
+      margin-top: 32px;
+    }
+
+    .result-combined {
+      background: rgba(0, 204, 255, 0.1);
+      padding: 18px;
+      border-left: 5px solid #33ccff;
+      color: #d4faff;
+      border-radius: 10px;
+      font-weight: bold;
+      margin-bottom: 24px;
+      font-size: 17px;
+      text-align: center;
+    }
+
+    .tables {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    @media (min-width: 500px) {
+      .tables {
+        flex-direction: row;
+      }
+    }
+
+    /* Tabel umum */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    th, td {
+      padding: 12px;
+      text-align: center;
+      font-size: 15px;
+      border: 1px solid rgba(255,255,255,0.1); /* Garis pemisah sel */
+    }
+
+    /* Distribusi (coral accents) */
+    .table-distribusi th {
+      background-color: rgba(255,127,80,0.2);
+      color: #ff9f6e;
+    }
+    .table-distribusi td {
+      color: #ffcbb3;
+    }
+
+    /* Akumulasi (aqua accents) dengan garis vertikal di kiri */
+    .table-akumulasi {
+      border-left: 2px solid rgba(255,255,255,0.2); /* Garis pemisah antar tabel */
+      padding-left: 16px;
+    }
+    .table-akumulasi th {
+      background-color: rgba(0,255,160,0.2);
+      color: #aaffc3;
+    }
+    .table-akumulasi td {
+      color: #ccffee;
+    }
+
+    .note {
+      font-size: 13px;
+      background: rgba(0,255,255,0.04);
+      padding: 16px;
+      border-left: 4px solid #33ccff;
+      color: #b5f3ff;
+      border-radius: 6px;
+      text-align: justify;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="branding">
+      <div class="logo">Sanva Indonesia</div>
+      <div class="logo-badge">Sanva</div>
+    </div>
+
+    <h2>SANPIV ADVANCE</h2>
+
+    <label for="vf">Volatility Factor (VF)</label>
+    <input type="number" id="vf" step="0.01" placeholder="Contoh: 3245.36">
+
+    <label for="cf">Close Factor (CF)</label>
+    <input type="number" id="cf" step="0.01" placeholder="Contoh: 3237.53">
+
+    <label>Sesi Trading (Pilih Salah Satu):</label>
+    <div class="session-options">
+      <label><input type="radio" name="session" value="8"> TKY</label>
+      <label><input type="radio" name="session" value="13"> LDN</label>
+      <label><input type="radio" name="session" value="21" checked> NY</label>
+    </div>
+
+    <button type="button" onclick="calculate()">Hitung</button>
+
+    <div id="result" class="result-section" style="display: none;">
+      <div class="result-combined" id="pivotSesi"></div>
+
+      <div class="tables">
+        <!-- Distribusi Merah -->
+        <table class="table-distribusi">
+          <thead><tr><th colspan="2">Distribusi</th></tr></thead>
+          <tbody>
+            <tr><td>Trigger Sell 0.5</td><td id="dist0_5"></td></tr>
+            <tr><td>Level 1.618</td><td id="dist1_618"></td></tr>
+            <tr><td>Level 2.618</td><td id="dist2_618"></td></tr>
+            <tr><td>Level 4.236</td><td id="dist4_236"></td></tr>
+          </tbody>
+        </table>
+
+        <!-- Akumulasi Hijau -->
+        <table class="table-akumulasi">
+          <thead><tr><th colspan="2">Akumulasi</th></tr></thead>
+          <tbody>
+            <tr><td>Trigger Buy 0.5</td><td id="acc0_5"></td></tr>
+            <tr><td>Level 1.618</td><td id="acc1_618"></td></tr>
+            <tr><td>Level 2.618</td><td id="acc2_618"></td></tr>
+            <tr><td>Level 4.236</td><td id="acc4_236"></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="note">
+        Perhitungan berdasarkan model Sanva Theory, disesuaikan dengan sesi trading dan input VF serta CF. Hasil bukan sinyal keuangan, gunakan sebagai referensi analisis tambahan.
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function calculate() {
+      const vf = parseFloat(document.getElementById('vf').value);
+      const cf = parseFloat(document.getElementById('cf').value);
+      const sessions = document.querySelectorAll('input[name="session"]');
+      let smoothFactor = 0;
+      let kodeNegara = "";
+
+      sessions.forEach(s => {
+        if (s.checked) {
+          smoothFactor = parseFloat(s.value);
+          kodeNegara = s.parentElement.textContent.trim();
+        }
+      });
+
+      if (isNaN(vf) || isNaN(cf)) {
+        alert("Masukkan VF dan CF yang valid.");
+        return;
+      }
+
+      const hs = vf + smoothFactor;
+      const ls = vf - smoothFactor;
+      const pp = (hs + ls + cf) / 3;
+      const range = hs - ls;
+
+      // Distribusi (atas pivot)
+      const dist0_5  = pp + (range * 0.5);
+      const dist1_618 = pp + (range * 1.618);
+      const dist2_618 = pp + (range * 2.618);
+      const dist4_236 = pp + (range * 4.236);
+
+      // Akumulasi (bawah pivot)
+      const acc0_5  = pp - (range * 0.5);
+      const acc1_618 = pp - (range * 1.618);
+      const acc2_618 = pp - (range * 2.618);
+      const acc4_236 = pp - (range * 4.236);
+
+      document.getElementById('pivotSesi').textContent = `Pivot Point: ${pp.toFixed(2)} | Sesi: ${kodeNegara}`;
+
+      // Tampilkan Distribusi
+      document.getElementById('dist0_5').textContent = dist0_5.toFixed(2);
+      document.getElementById('dist1_618').textContent = dist1_618.toFixed(2);
+      document.getElementById('dist2_618').textContent = dist2_618.toFixed(2);
+      document.getElementById('dist4_236').textContent = dist4_236.toFixed(2);
+
+      // Tampilkan Akumulasi
+      document.getElementById('acc0_5').textContent = acc0_5.toFixed(2);
+      document.getElementById('acc1_618').textContent = acc1_618.toFixed(2);
+      document.getElementById('acc2_618').textContent = acc2_618.toFixed(2);
+      document.getElementById('acc4_236').textContent = acc4_236.toFixed(2);
+
+      document.getElementById('result').style.display = 'block';
+    }
+  </script>
+</body>
+</html>
