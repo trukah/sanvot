@@ -361,7 +361,7 @@
       <div class="logo">Sanva Indonesia</div>
       <div class="logo-badge">SanClass</div>
     </div>
-    <h2>Intermatika</h2>
+    <h2>Quant-AI</h2>
 
     <div class="info-card" id="infoCard">
         <div class="info-card-header" id="infoCardHeader">
@@ -388,9 +388,9 @@
     <div>
       <label>Sesi Trading (Pilih Salah Satu):</label>
       <div class="session-options">
-        <label><input type="radio" name="session" value="8"> TKY</label>
-        <label><input type="radio" name="session" value="13"> LDN</label>
-        <label><input type="radio" name="session" value="21" checked> NY</label>
+        <label><input type="radio" name="session" value="8"> ER</label>
+        <label><input type="radio" name="session" value="13"> AM</label>
+        <label><input type="radio" name="session" value="21" checked> AS</label>
       </div>
     </div>
 
@@ -525,8 +525,8 @@
       // Menambahkan teks sentimen ke dalam card
       pivotSesiElement.innerHTML = `
           <span>PP: ${pp.toFixed(2)}</span>
-          <span>Sesi: ${kodeNegara}</span>
-          <span>Sinyal: ${sentimentText} <span class="sentiment-signal-icon ${sentimentSignalClass}">●</span></span>
+          <span>MS: ${kodeNegara}</span>
+          <span> ${sentimentText} <span class="sentiment-signal-icon ${sentimentSignalClass}">●</span></span>
       `;
 
       // --- Menghitung dan Menampilkan Tabel Distribusi (DI) dan Akumulasi (AK) ---
