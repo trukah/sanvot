@@ -574,11 +574,11 @@
         // Rumus: ((PP - CF) / Range) * 100
         // Persentase kiye digunakna nggo nentokna posisi marker nang garis visual.
         // Conto: Nek CF = PP, persentase = 0%. Nek CF = LS, persentase = 50%. Nek CF = HS, persentase = -50%.
-        let visualPositionPercent = ((pp - cf) / range) * 100 - 100;
+        let visualPositionPercent = ((cf - pp) / range) * 100;
 
         // Ngitung persentase sentimen nggo teks label nganggo rumus sing pada.
         // Hasil kiye sing bakal ditampilna nang ngisor marker.
-        let sentimentPercentageForLabel = ((pp - cf) / range) * 100 - 100;
+        let sentimentPercentageForLabel = ((pp - cf) / range) * 100;
 
 
         // --- Nentokna Warna Marker adhedhasar Posisi CF (Sinyal Sentimen) ---
