@@ -1,356 +1,353 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <title>Repeatable QuantAI</title>
-  <style>
-    /* Reset & Base */
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html, body { height: 100%; }
+  <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"> <title>Repeatable QuantAI</title> <style>
+    /* Reset & Gaya Dasar */
+    * { box-sizing: border-box; margin: 0; padding: 0; } /* Ngreset kabeh elemen ben ora ana margin/padding bawaan */
+    html, body { height: 100%; } /* Nggawe html karo body sak duwure layar */
     body {
-      background: linear-gradient(to bottom right, #001f3f, #00334d);
-      font-family: 'Segoe UI', sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: flex-start; /* Align items to the top */
-      padding: 1rem;
-      color: #e0faff;
-      min-height: 100vh; /* Ensure body takes at least full viewport height */
+      background: linear-gradient(to bottom right, #001f3f, #00334d); /* Nggawe latar mburi gradasi warna biru peteng */
+      font-family: 'Segoe UI', sans-serif; /* Milih jenis huruf utama */
+      display: flex; /* Nggunakna flexbox nggo layout */
+      justify-content: center; /* Nggawe konten nang tengah horizontal */
+      align-items: flex-start; /* Nggawe konten nang nduwur vertikal */
+      padding: 1rem; /* Nambah jarak pinggir nggo body */
+      color: #e0faff; /* Warna teks default (putih kebiruan) */
+      min-height: 100vh; /* Minimal dhuwure body sak layar penuh */
     }
     .container {
-      width: 100%;
-      max-width: 700px;
-      background: rgba(0, 26, 51, 0.75);
-      backdrop-filter: blur(12px);
-      border: 1px solid rgba(51,204,255,0.2);
-      border-radius: 18px;
-      box-shadow: 0 0 20px rgba(51,204,255,0.6);
-      padding: 1.5rem;
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      margin-bottom: 2rem; /* Add some margin at the bottom */
+      width: 100%; /* Ambane container sak layar */
+      max-width: 700px; /* Ambane maksimal container */
+      background: rgba(0, 26, 51, 0.75); /* Latar mburi container transparan */
+      backdrop-filter: blur(12px); /* Efek blur nang mburi container */
+      border: 1px solid rgba(51,204,255,0.2); /* Garis pinggir container */
+      border-radius: 18px; /* Nggawe sudut container mlengkung */
+      box-shadow: 0 0 20px rgba(51,204,255,0.6); /* Nambah bayangan nang container */
+      padding: 1.5rem; /* Jarak pinggir nang njero container */
+      display: flex; /* Nggunakna flexbox nggo layout nang container */
+      flex-direction: column; /* Nata elemen nang container mudun */
+      gap: 1rem; /* Jarak antar elemen nang container */
+      margin-bottom: 2rem; /* Nambah jarak ngisor container */
     }
     .branding {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+      display: flex; /* Nggunakna flexbox nggo branding */
+      justify-content: space-between; /* Nata elemen branding (logo karo badge) mencar */
+      align-items: center; /* Nggawe elemen branding sejajar tengah vertikal */
     }
     .logo {
-      font-size: 1.75rem;
-      font-weight: bold;
-      background: linear-gradient(to right, #33ccff, #006699);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      font-size: 1.75rem; /* Ukuran font logo */
+      font-weight: bold; /* Nggawe teks logo kandel */
+      background: linear-gradient(to right, #33ccff, #006699); /* Nggawe warna logo gradasi */
+      -webkit-background-clip: text; /* Nggawe gradasi nempel nang teks (kanggo browser webkit) */
+      -webkit-text-fill-color: transparent; /* Nggawe warna teks asli transparan (kanggo browser webkit) */
     }
     .logo-badge {
-      background: #00475a;
-      color: #33ccff;
-      padding: 0.25rem 0.75rem;
-      border-radius: 0.75rem;
-      font-weight: bold;
-      font-size: 0.75rem;
+      background: #00475a; /* Warna latar badge */
+      color: #33ccff; /* Warna teks badge */
+      padding: 0.25rem 0.75rem; /* Jarak pinggir nang njero badge */
+      border-radius: 0.75rem; /* Sudut badge mlengkung */
+      font-weight: bold; /* Teks badge kandel */
+      font-size: 0.75rem; /* Ukuran font badge */
     }
     h2 {
-      text-align: center;
-      color: #ccf2ff;
-      font-size: 1.5rem;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 0.5rem;
+      text-align: center; /* Nggawe judul tengah */
+      color: #ccf2ff; /* Warna judul */
+      font-size: 1.5rem; /* Ukuran font judul */
+      display: flex; /* Nggunakna flexbox nggo judul karo ikon */
+      justify-content: center; /* Nggawe tengah horizontal */
+      align-items: center; /* Nggawe tengah vertikal */
+      gap: 0.5rem; /* Jarak antar ikon karo teks judul */
     }
-    h2::before { content: '🔬'; font-size: 1.75rem; } /* Microscope icon */
+    h2::before { content: '🔬'; font-size: 1.75rem; } /* Nambah ikon mikroskop sedurunge teks judul */
 
     label {
-      font-size: 0.875rem;
-      margin-bottom: 0.25rem;
-      color: #aaddff;
-      display: block; /* Make label a block element for better spacing */
+      font-size: 0.875rem; /* Ukuran font label */
+      margin-bottom: 0.25rem; /* Jarak ngisor label */
+      color: #aaddff; /* Warna teks label */
+      display: block; /* Nggawe label dadi blok ben ana jarak apik */
     }
     input[type="number"] {
-      width: 100%;
-      padding: 0.75rem;
-      border-radius: 0.75rem;
-      border: 1px solid #33ccff;
-      background: rgba(255,255,255,0.05);
-      color: #e0faff;
-      font-size: 0.875rem;
-      transition: background 0.3s;
-      -moz-appearance: textfield; /* Hide arrows in Firefox */
+      width: 100%; /* Ambane input sak container */
+      padding: 0.75rem; /* Jarak pinggir nang njero input */
+      border-radius: 0.75rem; /* Sudut input mlengkung */
+      border: 1px solid #33ccff; /* Garis pinggir input */
+      background: rgba(255,255,255,0.05); /* Latar mburi input transparan */
+      color: #e0faff; /* Warna teks nang input */
+      font-size: 0.875rem; /* Ukuran font teks nang input */
+      transition: background 0.3s; /* Efek transisi alus pas background ganti */
+      -moz-appearance: textfield; /* Ngilangna panah angka nang Firefox */
     }
-    /* Hide arrows in Chrome, Safari, Edge */
+    /* Ngilangna panah angka nang Chrome, Safari, Edge */
     input[type="number"]::-webkit-outer-spin-button,
     input[type="number"]::-webkit-inner-spin-button {
-        -webkit-appearance: none;
-        margin: 0;
+        -webkit-appearance: none; /* Ngilangna tampilan bawaan */
+        margin: 0; /* Ngilangna margin bawaan */
     }
     input[type="number"]:focus {
-      background: rgba(255,255,255,0.15);
-      box-shadow: 0 0 8px #33ccff;
-      outline: none;
+      background: rgba(255,255,255,0.15); /* Latar mburi input pas difokusna */
+      box-shadow: 0 0 8px #33ccff; /* Bayangan pas input difokusna */
+      outline: none; /* Ngilangna garis outline bawaan */
     }
     .session-options {
-      display: flex;
-      justify-content: space-around;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      margin: 0.75rem 0;
+      display: flex; /* Nggunakna flexbox nggo pilihan sesi */
+      justify-content: space-around; /* Nata pilihan sesi ben rata jarakke */
+      flex-wrap: wrap; /* Nek ora cukup, pilihan sesi bakal mudun baris */
+      gap: 0.5rem; /* Jarak antar pilihan sesi */
+      margin: 0.75rem 0; /* Jarak nduwur ngisor nggo grup pilihan sesi */
     }
     .session-options label {
-      display: flex;
-      align-items: center;
-      gap: 0.25rem;
-      font-size: 0.875rem;
-      color: #b2e6ff;
-      cursor: pointer; /* Indicate radio buttons are interactive */
+      display: flex; /* Nggunakna flexbox nggo label radio */
+      align-items: center; /* Nggawe radio karo teks sejajar tengah */
+      gap: 0.25rem; /* Jarak antar radio karo teks */
+      font-size: 0.875rem; /* Ukuran font label radio */
+      color: #b2e6ff; /* Warna teks label radio */
+      cursor: pointer; /* Nuduhna nek label radio teyeng diklik */
     }
      .session-options input[type="radio"] {
-        margin-right: 0.25rem; /* Add space between radio and text */
+        margin-right: 0.25rem; /* Nambah jarak antar radio karo teks */
      }
 
     button {
-      width: 100%;
-      padding: 0.75rem;
-      background: linear-gradient(to right, #33ccff, #006699);
-      color: #fff;
-      border: none;
-      border-radius: 0.75rem;
-      font-size: 1rem;
-      font-weight: bold;
-      cursor: pointer;
-      transition: background 0.3s;
-      box-shadow: 0 2px 12px rgba(51,204,255,0.4);
+      width: 100%; /* Ambane tombol sak container */
+      padding: 0.75rem; /* Jarak pinggir nang njero tombol */
+      background: linear-gradient(to right, #33ccff, #006699); /* Warna latar tombol gradasi */
+      color: #fff; /* Warna teks tombol */
+      border: none; /* Ngilangna garis pinggir tombol */
+      border-radius: 0.75rem; /* Sudut tombol mlengkung */
+      font-size: 1rem; /* Ukuran font tombol */
+      font-weight: bold; /* Teks tombol kandel */
+      cursor: pointer; /* Nuduhna nek tombol teyeng diklik */
+      transition: background 0.3s; /* Efek transisi alus pas hover */
+      box-shadow: 0 2px 12px rgba(51,204,255,0.4); /* Bayangan tombol */
     }
     button:hover {
-      background: linear-gradient(to right, #00aaff, #004466);
+      background: linear-gradient(to right, #00aaff, #004466); /* Warna latar tombol pas di-hover */
     }
     .result-section {
-      display: none; /* Hidden by default */
-      flex-direction: column;
-      gap: 1rem;
-      margin-top: 1rem; /* Add space above results */
+      display: none; /* Awal-awal didelikna */
+      flex-direction: column; /* Nata elemen hasil mudun */
+      gap: 1rem; /* Jarak antar elemen hasil */
+      margin-top: 1rem; /* Jarak nduwur bagian hasil */
     }
     .result-combined {
-      background: rgba(0, 204, 255, 0.1);
-      padding: 1rem;
-      border-left: 5px solid #33ccff;
-      border-radius: 0.625rem;
-      font-weight: bold;
-      text-align: center;
-      font-size: 1rem;
-      box-shadow: 0 0 10px rgba(51,204,255,0.4);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 0.75rem;
-      flex-wrap: wrap;
+      background: rgba(0, 204, 255, 0.1); /* Latar mburi bagian PP/Sesi/Sinyal */
+      padding: 1rem; /* Jarak pinggir nang njero */
+      border-left: 5px solid #33ccff; /* Garis kiwa penanda */
+      border-radius: 0.625rem; /* Sudut mlengkung */
+      font-weight: bold; /* Teks kandel */
+      text-align: center; /* Teks rata tengah */
+      font-size: 1rem; /* Ukuran font */
+      box-shadow: 0 0 10px rgba(51,204,255,0.4); /* Bayangan */
+      display: flex; /* Nggunakna flexbox */
+      justify-content: center; /* Nata elemen nang tengah horizontal */
+      align-items: center; /* Nata elemen nang tengah vertikal */
+      gap: 0.75rem; /* Jarak antar elemen (PP, Sesi, Sinyal) */
+      flex-wrap: wrap; /* Nek ora cukup, mudun baris */
     }
     .result-combined span {
-        display: inline-block;
-        /* Add some padding for better touch targets on mobile */
+        display: inline-block; /* Nggawe span sejajar */
+        /* Nambah padding ben luwih gampang disentuh nang HP */
         padding: 0.25rem 0.5rem;
     }
 
-    /* Style for the sentiment signal icon (using emoji) */
+    /* Gaya nggo ikon sinyal sentimen (nganggo emoji) */
     .sentiment-signal-icon {
-        display: inline-block;
-        font-size: 1.5rem; /* Size of the light icon */
-        line-height: 1;
-        margin-left: 0.5rem;
-        vertical-align: middle;
-        text-shadow: 0 0 8px rgba(255,255,255,0.6);
-        filter: drop-shadow(0 0 5px rgba(255,255,255,0.4));
+        display: inline-block; /* Ben sejajar karo teks */
+        font-size: 1.5rem; /* Ukuran ikon lampu */
+        line-height: 1; /* Dhuwur baris normal */
+        margin-left: 0.5rem; /* Jarak kiwa ikon */
+        vertical-align: middle; /* Nggawe ikon nang tengah vertikal karo teks */
+        text-shadow: 0 0 8px rgba(255,255,255,0.6); /* Bayangan teks nggo ikon */
+        filter: drop-shadow(0 0 5px rgba(255,255,255,0.4)); /* Bayangan nggo ikon */
     }
-    /* Colors for the signal icon based on sentiment */
-    .signal-be { color: #ef4444; filter: drop-shadow(0 0 5px rgba(239, 68, 68, 0.6)); } /* Red */
-    .signal-k { color: #facc15; filter: drop-shadow(0 0 5px rgba(250, 204, 21, 0.6)); } /* Yellow */
-    .signal-bu { color: #22c55e; filter: drop-shadow(0 0 5px rgba(34, 197, 94, 0.6)); } /* Green */
+    /* Warna nggo ikon sinyal adhedhasar sentimen */
+    .signal-be { color: #ef4444; filter: drop-shadow(0 0 5px rgba(239, 68, 68, 0.6)); } /* Abang (Bearish) */
+    .signal-k { color: #facc15; filter: drop-shadow(0 0 5px rgba(250, 204, 21, 0.6)); } /* Kuning (Konsolidasi) */
+    .signal-bu { color: #22c55e; filter: drop-shadow(0 0 5px rgba(34, 197, 94, 0.6)); } /* Ijo (Bullish) */
 
 
     .tables {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 1rem;
-      width: 100%;
+      display: grid; /* Nggunakna grid nggo layout tabel */
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); /* Kolom otomatis nyesuaikna, minimal 240px */
+      gap: 1rem; /* Jarak antar tabel */
+      width: 100%; /* Ambane sak container */
     }
     table {
-      width: 100%;
-      border-collapse: collapse;
-      background: rgba(255,255,255,0.05);
-      border-radius: 0.5rem;
-      overflow: hidden;
-      box-shadow: 0 0 10px rgba(51,204,255,0.4);
+      width: 100%; /* Ambane tabel sak kolom grid */
+      border-collapse: collapse; /* Ngilangna jarak antar sel tabel */
+      background: rgba(255,255,255,0.05); /* Latar mburi tabel transparan */
+      border-radius: 0.5rem; /* Sudut tabel mlengkung */
+      overflow: hidden; /* Ndelikna bagian sing metu sekang sudut mlengkung */
+      box-shadow: 0 0 10px rgba(51,204,255,0.4); /* Bayangan tabel */
     }
     th, td {
-      padding: 0.75rem;
-      text-align: center;
-      font-size: 0.875rem;
-      border-bottom: 1px solid rgba(255,255,255,0.1);
-      color: #e0faff;
+      padding: 0.75rem; /* Jarak pinggir nang njero sel */
+      text-align: center; /* Teks rata tengah nang sel */
+      font-size: 0.875rem; /* Ukuran font sel */
+      border-bottom: 1px solid rgba(255,255,255,0.1); /* Garis ngisor antar baris */
+      color: #e0faff; /* Warna teks sel */
     }
-    thead th { border-bottom: 2px solid rgba(255,255,255,0.2); }
+    thead th { border-bottom: 2px solid rgba(255,255,255,0.2); } /* Garis ngisor header tabel luwih kandel */
 
-    /* Table headers colored by sentiment type */
+    /* Header tabel diwarnai miturut jenis sentimen */
     .table-distribusi th {
-        background-color: rgba(239, 68, 68, 0.5); /* Red (BE) with opacity */
-        color: #ef4444; /* Red text */
+        background-color: rgba(239, 68, 68, 0.5); /* Abang (BE) transparan */
+        color: #ef4444; /* Teks abang */
     }
     .table-akumulasi th {
-        background-color: rgba(34, 197, 94, 0.5); /* Green (BU) with opacity */
-        color: #22c55e; /* Green text */
+        background-color: rgba(34, 197, 94, 0.5); /* Ijo (BU) transparan */
+        color: #22c55e; /* Teks ijo */
     }
 
     .note {
-      font-size: 0.8125rem;
-      background: rgba(0,255,255,0.04);
-      padding: 0.75rem;
-      border-left: 4px solid #33ccff;
-      border-radius: 0.5rem;
-      text-align: justify;
-      box-shadow: 0 0 10px rgba(51,204,255,0.4);
+      font-size: 0.8125rem; /* Ukuran font catetan */
+      background: rgba(0,255,255,0.04); /* Latar mburi catetan transparan */
+      padding: 0.75rem; /* Jarak pinggir nang njero catetan */
+      border-left: 4px solid #33ccff; /* Garis kiwa penanda catetan */
+      border-radius: 0.5rem; /* Sudut catetan mlengkung */
+      text-align: justify; /* Teks rata kiri-kanan */
+      box-shadow: 0 0 10px rgba(51,204,255,0.4); /* Bayangan catetan */
     }
 
-    /* CSS for Sentiment Visualization Area */
+    /* CSS nggo Area Visualisasi Sentimen */
     #sentiment_visualization_area {
-        margin-top: 1rem;
-        margin-bottom: 1rem;
-        background: rgba(51,204,255,0.05);
-        border: 1px solid rgba(51,204,255,0.1);
-        border-radius: 0.75rem;
-        padding: 1rem;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 0.5rem;
-        opacity: 0; /* Hidden by default */
-        transform: translateY(10px);
-        pointer-events: none;
-        transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
-        box-shadow: 0 0 10px rgba(51,204,255,0.4);
+        margin-top: 1rem; /* Jarak nduwur */
+        margin-bottom: 1rem; /* Jarak ngisor */
+        background: rgba(51,204,255,0.05); /* Latar mburi transparan */
+        border: 1px solid rgba(51,204,255,0.1); /* Garis pinggir tipis */
+        border-radius: 0.75rem; /* Sudut mlengkung */
+        padding: 1rem; /* Jarak pinggir nang njero */
+        display: flex; /* Nggunakna flexbox */
+        flex-direction: column; /* Nata elemen mudun */
+        align-items: center; /* Nata elemen nang tengah horizontal */
+        gap: 0.5rem; /* Jarak antar elemen nang njero */
+        opacity: 0; /* Awal-awal transparan (didhelikna) */
+        transform: translateY(10px); /* Awal-awal rada ngisor */
+        pointer-events: none; /* Ora teyeng diinteraksi pas didhelikna */
+        transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out; /* Efek transisi pas muncul */
+        box-shadow: 0 0 10px rgba(51,204,255,0.4); /* Bayangan */
     }
     #sentiment_visualization_area.visualization-visible {
-        opacity: 1;
-        transform: translateY(0);
-        pointer-events: auto;
+        opacity: 1; /* Dadi katon */
+        transform: translateY(0); /* Balik nang posisi asli */
+        pointer-events: auto; /* Teyeng diinteraksi */
     }
 
     .sentiment-line-container {
-        position: relative;
-        width: 100%;
-        height: 30px; /* Container height for the line and marker */
-        padding: 0 10px; /* Padding to give space for marker at ends */
-        display: flex;
-        align-items: center; /* Vertically center the line */
-        background: none;
-        border: none;
-        border-radius: 0;
-        box-shadow: none;
+        position: relative; /* Dadi referensi posisi absolut nggo marker */
+        width: 100%; /* Ambane sak container visualisasi */
+        height: 30px; /* Dhuwure container nggo garis karo marker */
+        padding: 0 10px; /* Padding kiwa-tengen ben marker ora mepet pinggir */
+        display: flex; /* Nggunakna flexbox */
+        align-items: center; /* Nggawe garis nang tengah vertikal */
+        background: none; /* Ora ana latar mburi */
+        border: none; /* Ora ana garis pinggir */
+        border-radius: 0; /* Ora ana sudut mlengkung */
+        box-shadow: none; /* Ora ana bayangan */
     }
     .sentiment-line {
-        position: static; /* Let the line flow naturally within flex container */
-        flex-grow: 1; /* Make the line fill the container width minus padding */
-        height: 8px;
-        border-radius: 4px;
-        /* Gradient color: BE 40%, K 20%, BU 40% */
+        position: static; /* Posisi normal nang flex container */
+        flex-grow: 1; /* Nggawe garis ngisi sisa ruang */
+        height: 8px; /* Dhuwure garis */
+        border-radius: 4px; /* Sudut garis mlengkung */
+        /* Warna gradien: BE 40%, K 20%, BU 40% */
         background: linear-gradient(to right,
-            #ef4444 0%,     /* Red (BE) start */
-            #ef4444 40%,    /* Red (BE) end */
-            #facc15 40%,    /* Yellow (K) start */
-            #facc15 60%,    /* Yellow (K) end (40% + 20%) */
-            #22c55e 60%,    /* Green (BU) start */
-            #22c55e 100%    /* Green (BU) end */
+            #ef4444 0%,     /* Abang (BE) mulai */
+            #ef4444 40%,    /* Abang (BE) akhir */
+            #facc15 40%,    /* Kuning (K) mulai */
+            #facc15 60%,    /* Kuning (K) akhir (40% + 20%) */
+            #22c55e 60%,    /* Ijo (BU) mulai */
+            #22c55e 100%    /* Ijo (BU) akhir */
         );
-        box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+        box-shadow: 0 1px 3px rgba(0,0,0,0.3); /* Bayangan tipis nggo garis */
     }
-    /* Style for the CF marker (●) */
+    /* Gaya nggo marker CF (●) */
     .cf-marker {
-        position: absolute; /* Absolute positioning relative to .sentiment-line-container */
-        top: 50%; /* Center vertically */
-        transform: translate(-50%, -50%); /* Adjust position to truly center the marker */
-        font-size: 1.2rem;
-        line-height: 1;
-        transition: left 0.5s ease-in-out, color 0.3s ease-in-out;
-        z-index: 10;
-        text-shadow: 0 0 5px rgba(51,204,255,0.5);
+        position: absolute; /* Posisi absolut relatif maring .sentiment-line-container */
+        top: 50%; /* Nang tengah vertikal */
+        transform: translate(-50%, -50%); /* Nyesuaikna posisi ben bener-bener nang tengah */
+        font-size: 1.2rem; /* Ukuran marker */
+        line-height: 1; /* Dhuwur baris normal */
+        transition: left 0.5s ease-in-out, color 0.3s ease-in-out; /* Efek transisi pas pindah posisi utawa ganti warna */
+        z-index: 10; /* Nggawe marker nang nduwure elemen liya */
+        text-shadow: 0 0 5px rgba(51,204,255,0.5); /* Bayangan teks nggo marker */
     }
-    /* Style for the percentage text below the marker */
+    /* Gaya nggo teks persentase nang ngisor marker */
     .cf-percentage-text {
-        position: absolute; /* Absolute positioning relative to .sentiment-line-container */
-        top: 100%; /* Position below the container */
-        margin-top: 5px; /* Space below the line container */
-        font-size: 0.8rem;
-        font-weight: 600;
-        transform: translateX(-50%); /* Center the text horizontally relative to its left edge */
-        transition: left 0.5s ease-in-out, color 0.3s ease-in-out;
-        white-space: nowrap;
-        background-color: rgba(0, 49, 74, 0.9);
-        color: #e0faff !important; /* Ensure text color is bright */
-        padding: 2px 6px;
-        border-radius: 4px;
-        box-shadow: 0 1px 3px rgba(0,0,0,0.3);
-        z-index: 5;
-        border: 1px solid rgba(51,204,255,0.1);
+        position: absolute; /* Posisi absolut relatif maring .sentiment-line-container */
+        top: 100%; /* Posisi nang ngisor container garis */
+        margin-top: 5px; /* Jarak sekang ngisor container garis */
+        font-size: 0.8rem; /* Ukuran font */
+        font-weight: 600; /* Rada kandel */
+        transform: translateX(-50%); /* Nggawe teks rata tengah relatif karo posisi kiwane */
+        transition: left 0.5s ease-in-out, color 0.3s ease-in-out; /* Efek transisi pas pindah posisi utawa ganti warna */
+        white-space: nowrap; /* Ben teks ora mudun baris */
+        background-color: rgba(0, 49, 74, 0.9); /* Latar mburi rada transparan */
+        color: #e0faff !important; /* Mestikna warna teks padang */
+        padding: 2px 6px; /* Jarak pinggir nang njero */
+        border-radius: 4px; /* Sudut mlengkung */
+        box-shadow: 0 1px 3px rgba(0,0,0,0.3); /* Bayangan tipis */
+        z-index: 5; /* Nang mburine marker tapi nduwure garis */
+        border: 1px solid rgba(51,204,255,0.1); /* Garis pinggir tipis */
     }
 
-    /* Dynamic color classes for marker and text based on sentiment zone */
-    .marker-be, .text-be { color: #ef4444; } /* Red */
-    .marker-k, .text-k { color: #facc15; } /* Yellow */
-    .marker-bu, .text-bu { color: #22c55e; } /* Green */
+    /* Kelas warna dinamis nggo marker karo teks adhedhasar zona sentimen */
+    .marker-be, .text-be { color: #ef4444; } /* Abang */
+    .marker-k, .text-k { color: #facc15; } /* Kuning */
+    .marker-bu, .text-bu { color: #22c55e; } /* Ijo */
 
-    /* CSS for Collapsible Info Card */
+    /* CSS nggo Kartu Info Sing Teyeng Dilipat */
     .info-card {
-        background: rgba(51,204,255,0.05);
-        border: 1px solid rgba(51,204,255,0.1);
-        border-radius: 0.75rem;
-        overflow: hidden;
-        box-shadow: 0 0 10px rgba(51,204,255,0.4);
-        margin-bottom: 1rem;
+        background: rgba(51,204,255,0.05); /* Latar mburi transparan */
+        border: 1px solid rgba(51,204,255,0.1); /* Garis pinggir tipis */
+        border-radius: 0.75rem; /* Sudut mlengkung */
+        overflow: hidden; /* Ndelikna konten sing metu nek ditutup */
+        box-shadow: 0 0 10px rgba(51,204,255,0.4); /* Bayangan */
+        margin-bottom: 1rem; /* Jarak ngisor */
     }
 
     .info-card-header {
-        padding: 0.75rem 1.5rem;
-        background: rgba(51,204,255,0.1);
-        color: #ccf2ff;
-        font-weight: bold;
-        cursor: pointer;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        transition: background 0.3s ease;
+        padding: 0.75rem 1.5rem; /* Jarak pinggir nang njero header */
+        background: rgba(51,204,255,0.1); /* Latar mburi header rada transparan */
+        color: #ccf2ff; /* Warna teks header */
+        font-weight: bold; /* Teks header kandel */
+        cursor: pointer; /* Nuduhna nek teyeng diklik */
+        display: flex; /* Nggunakna flexbox */
+        justify-content: space-between; /* Nata judul karo panah mencar */
+        align-items: center; /* Nggawe judul karo panah tengah vertikal */
+        transition: background 0.3s ease; /* Efek transisi alus pas hover */
     }
 
     .info-card-header:hover {
-        background: rgba(51,204,255,0.2);
+        background: rgba(51,204,255,0.2); /* Latar mburi header pas di-hover */
     }
 
     .info-card-header .arrow {
-        transition: transform 0.3s ease;
+        transition: transform 0.3s ease; /* Efek transisi pas panah muter */
     }
 
     .info-card-header.expanded .arrow {
-        transform: rotate(180deg);
+        transform: rotate(180deg); /* Muter panah pas kartu dibuka */
     }
 
     .info-card-content {
-        padding: 0 1.5rem;
-        max-height: 0; /* Initially hidden */
-        overflow: hidden;
-        transition: max-height 0.3s ease-out, padding 0.3s ease-out;
-        color: #b2e6ff;
-        text-align: justify;
+        padding: 0 1.5rem; /* Padding kiwa-tengen (padding nduwur-ngisor diatur transisi) */
+        max-height: 0; /* Awal-awal dhuwure 0 (didhelikna) */
+        overflow: hidden; /* Ndelikna konten sing luwih */
+        transition: max-height 0.3s ease-out, padding 0.3s ease-out; /* Efek transisi pas buka/nutup */
+        color: #b2e6ff; /* Warna teks konten */
+        text-align: justify; /* Teks rata kiri-kanan */
     }
 
     .info-card-content.expanded {
-        max-height: 500px; /* Sufficient height for content */
-        padding: 1rem 1.5rem;
+        max-height: 500px; /* Dhuwur maksimal pas dibuka (kira-kira cukup) */
+        padding: 1rem 1.5rem; /* Nambah padding nduwur-ngisor pas dibuka */
     }
      .info-card-content p {
-         margin-bottom: 0.5rem; /* Space between paragraphs in info card */
+         margin-bottom: 0.5rem; /* Jarak antar paragraf nang kartu info */
      }
      .info-card-content p:last-child {
-         margin-bottom: 0; /* No margin after the last paragraph */
+         margin-bottom: 0; /* Ora ana jarak ngisor nggo paragraf terakhir */
      }
 
   </style>
@@ -358,19 +355,15 @@
 <body>
   <div class="container">
     <div class="branding">
-      <div class="logo">Sanva Indonesia</div>
-      <div class="logo-badge">SanClass</div>
-    </div>
+      <div class="logo">Sanva Indonesia</div> <div class="logo-badge">SanClass</div> </div>
     <h2>Quant-AI</h2>
 
     <div class="info-card" id="infoCard">
         <div class="info-card-header" id="infoCardHeader">
-            <span>Informasi Penting / Cara Penggunaan</span>
-            <span class="arrow">▼</span>
-        </div>
+            <span>Informasi Penting / Cara Penggunaan</span> <span class="arrow">▼</span> </div>
         <div class="info-card-content" id="infoCardContent">
             <p>Masukkan nilai Volatility Factor (VF) dan Close Factor (CF) pada kolom yang tersedia.</p>
-            <p>Pilih Sesi Trading (TKY, LDN, atau NY) yang sesuai. Pilihan sesi ini akan menentukan nilai Smooth Factor (SF).</p>
+            <p>Pilih Sesi Trading (ER, AM, atau AS) yang sesuai. Pilihan sesi ini akan menentukan nilai Smooth Factor (SF).</p>
             <p>Klik tombol "Hitung" untuk menampilkan hasil analisis berdasarkan Sanva Theory.</p>
             <p>Hasil akan menampilkan Pivot Point (PP), Sesi, Sinyal Sentimen, Visualisasi Sentimen, serta tabel Distribusi dan Akumulasi pada level-level kunci.</p>
             <p>Analisis ini bersifat eksperimental dan bukan merupakan nasihat keuangan. Selalu gunakan manajemen risiko.</p>
@@ -378,20 +371,11 @@
     </div>
 
     <div>
-      <label for="vf">Volatility Factor (VF)</label>
-      <input type="number" id="vf" step="0.01" placeholder="Contoh: 3245.36">
-    </div>
+      <label for="vf">Volatility Factor (VF)</label> <input type="number" id="vf" step="0.01" placeholder="Contoh: 3245.36"> </div>
     <div>
-      <label for="cf">Close Factor (CF)</label>
-      <input type="number" id="cf" step="0.01" placeholder="Contoh: 3237.53">
-    </div>
+      <label for="cf">Close Factor (CF)</label> <input type="number" id="cf" step="0.01" placeholder="Contoh: 3237.53"> </div>
     <div>
-      <label>Sesi Trading (Pilih Salah Satu):</label>
-      <div class="session-options">
-        <label><input type="radio" name="session" value="8"> ER</label>
-        <label><input type="radio" name="session" value="13"> AM</label>
-        <label><input type="radio" name="session" value="21" checked> AS</label>
-      </div>
+      <label>Sesi Trading (Pilih Salah Satu):</label> <div class="session-options"> <label><input type="radio" name="session" value="8"> ER</label> <label><input type="radio" name="session" value="13"> AM</label> <label><input type="radio" name="session" value="21" checked> AS</label> </div>
     </div>
 
     <button type="button" onclick="calculate()">Hitung</button>
@@ -400,32 +384,17 @@
       <div class="result-combined" id="pivotSesi">
           </div>
 
-      <div id="sentiment_visualization_area" class="visualization-hidden">
-          <div class="sentiment-line-container">
-              <div class="sentiment-line"></div>
-              <span id="cf_marker" class="cf-marker">●</span>
-              <span id="cf_percentage" class="cf-percentage-text">0%</span>
-          </div>
+      <div id="sentiment_visualization_area" class="visualization-hidden"> <div class="sentiment-line-container"> <div class="sentiment-line"></div> <span id="cf_marker" class="cf-marker">●</span> <span id="cf_percentage" class="cf-percentage-text">0%</span> </div>
       </div>
 
       <div class="tables">
         <table class="table-distribusi">
-          <thead><tr><th colspan="2">Distribusi (PP + R * M)</th></tr></thead>
-          <tbody>
-            <tr><td>Trigger Sell (M=0.5)</td><td id="dist0_5"></td></tr>
-            <tr><td>Target Buyer (M=1.618)</td><td id="dist1_618"></td></tr>
-            <tr><td>Levels 2.618</td><td id="dist2_618"></td></tr>
-            <tr><td>Levels 4.236</td><td id="dist4_236"></td></tr>
-          </tbody>
+          <thead><tr><th colspan="2">Distribusi (PP + R * M)</th></tr></thead> <tbody>
+            <tr><td>Trigger Sell (M=0.5)</td><td id="dist0_5"></td></tr> <tr><td>Target Buyer (M=1.618)</td><td id="dist1_618"></td></tr> <tr><td>Levels 2.618</td><td id="dist2_618"></td></tr> <tr><td>Levels 4.236</td><td id="dist4_236"></td></tr> </tbody>
         </table>
         <table class="table-akumulasi">
-          <thead><tr><th colspan="2">Akumulasi (PP - R * M)</th></tr></thead>
-          <tbody>
-            <tr><td>Trigger Buy (M=0.5)</td><td id="acc0_5"></td></tr>
-            <tr><td>Target Sell (M=1.618)</td><td id="acc1_618"></td></tr>
-            <tr><td>Levels 2.618</td><td id="acc2_618"></td></tr>
-            <tr><td>Levels 4.236</td><td id="acc4_236"></td></tr>
-          </tbody>
+          <thead><tr><th colspan="2">Akumulasi (PP - R * M)</th></tr></thead> <tbody>
+            <tr><td>Trigger Buy (M=0.5)</td><td id="acc0_5"></td></tr> <tr><td>Target Sell (M=1.618)</td><td id="acc1_618"></td></tr> <tr><td>Levels 2.618</td><td id="acc2_618"></td></tr> <tr><td>Levels 4.236</td><td id="acc4_236"></td></tr> </tbody>
         </table>
       </div>
 
@@ -436,279 +405,290 @@
   </div>
 
   <script>
-    // Variabel untuk menyimpan nilai LS, HS, CF, PP terakhir yang dihitung
-    // Digunakan untuk memperbarui visualisasi saat ukuran jendela berubah
-    let lastCalculatedLS = null;
-    let lastCalculatedHS = null;
-    let lastCalculatedCF = null;
-    let lastCalculatedPP = null;
+    // Variabel global nggo nyimpen nilai LS, HS, CF, PP terakhir sing diitung
+    // Gunane nggo ngupdate visualisasi nek ukuran layar berubah tanpa ngitung ulang kabeh
+    let lastCalculatedLS = null; // Nyimpen Low Session terakhir
+    let lastCalculatedHS = null; // Nyimpen High Session terakhir
+    let lastCalculatedCF = null; // Nyimpen Close Factor terakhir
+    let lastCalculatedPP = null; // Nyimpen Pivot Point terakhir
 
-    // Fungsi utama untuk melakukan perhitungan dan menampilkan hasil
+    // Fungsi utama nggo ngitung kabeh lan nampilna hasile
     function calculate() {
-      // Mengambil nilai input VF dan CF
+      // Njikot nilai input VF karo CF sekang kolom input, diowaih dadi angka desimal
       const vf = parseFloat(document.getElementById('vf').value);
       const cf = parseFloat(document.getElementById('cf').value);
 
-      // Mengambil nilai Smooth Factor (SF) dari pilihan sesi radio button
-      const sessions = document.querySelectorAll('input[name="session"]');
-      let smoothFactor = 0;
-      let kodeNegara = ''; // Untuk menampilkan kode sesi (TKY, LDN, NY)
-      sessions.forEach(s => {
-          if (s.checked) {
-              smoothFactor = parseFloat(s.value);
-              // Mengambil teks label dari radio button yang dipilih
+      // Njikot nilai Smooth Factor (SF) sekang pilihan sesi radio button sing lagi dicentang
+      const sessions = document.querySelectorAll('input[name="session"]'); // Milih kabeh radio button sesi
+      let smoothFactor = 0; // Nilai default SF
+      let kodeNegara = ''; // Nggo nyimpen kode sesi (ER, AM, AS) sing dipilih
+      sessions.forEach(s => { // Ngulang saben radio button
+          if (s.checked) { // Nek radio button lagi dicentang
+              smoothFactor = parseFloat(s.value); // Jikot nilai SF (value radio button)
+              // Njikot teks label sekang parent radio button sing dipilih (misal: " ER") terus ngilangna spasi ngarep/mburi
               kodeNegara = s.parentElement.textContent.trim();
           }
       });
 
-      // Validasi input: Pastikan VF dan CF adalah angka yang valid
+      // Validasi input: Mestikna VF karo CF kuwe angka sing bener (dudu NaN - Not a Number)
       if (isNaN(vf) || isNaN(cf)) {
-        // Menggunakan pesan box sederhana sebagai pengganti alert()
-        showMessageBox('Masukkan nilai VF dan CF yang valid.');
-        // Sembunyikan area hasil jika input tidak valid
+        // Nampilna pesen error nganggo fungsi showMessageBox (pengganti alert)
+        showMessageBox('Lebokna nilai VF karo CF sing bener, Lur!');
+        // Nek input ora valid, delikna bagian hasil
         document.getElementById('result').style.display = 'none';
-        // Sembunyikan visualisasi sentimen
+        // Delikna juga visualisasi sentimen
         const visualizationArea = document.getElementById('sentiment_visualization_area');
-        if (visualizationArea) {
-             visualizationArea.classList.remove('visualization-visible');
-             visualizationArea.classList.add('visualization-hidden');
+        if (visualizationArea) { // Mestikna elemen visualisasi ana
+             visualizationArea.classList.remove('visualization-visible'); // Ilangi kelas nggo nampilna
+             visualizationArea.classList.add('visualization-hidden'); // Tambah kelas nggo ndelikna
         }
-        // Kosongkan card pivot
+        // Kosongna isi card pivot/sesi/sinyal
         document.getElementById('pivotSesi').innerHTML = '';
-        // Reset nilai terakhir
+        // Reset nilai global sing disimpen dadi null maning
         lastCalculatedLS = null;
         lastCalculatedHS = null;
         lastCalculatedCF = null;
         lastCalculatedPP = null;
-        return; // Hentikan eksekusi fungsi
+        return; // Metu sekang fungsi calculate, ora nerusna itungan
       }
 
-      // --- Logika Perhitungan Sanva Theory ---
-      // Menghitung High Session (HS) dan Low Session (LS)
+      // --- Logika Inti Itungan Sanva Theory ---
+      // Ngitung High Session (HS) = VF + SF
       const hs = vf + smoothFactor;
+      // Ngitung Low Session (LS) = VF - SF
       const ls = vf - smoothFactor;
 
-      // Menghitung Pivot Point (PP)
+      // Ngitung Pivot Point (PP) = (HS + LS + CF) / 3
       const pp = (hs + ls + cf) / 3;
 
-      // Menghitung Range (R)
+      // Ngitung Range (R) = HS - LS
       const range = hs - ls;
 
-      // Simpan nilai LS, HS, CF, PP yang baru dihitung untuk penggunaan saat resize dan visualisasi
+      // Simpen nilai LS, HS, CF, PP sing nembe diitung nang variabel global
       lastCalculatedLS = ls;
       lastCalculatedHS = hs;
       lastCalculatedCF = cf;
       lastCalculatedPP = pp;
 
-      // --- Menentukan Sinyal Sentimen (SI) sesuai logika yang diminta ---
-      // Logika sinyal sesuai permintaan user:
-      // Bullish: CF di atas LS DAN di atas HS
-      // Bearish: CF di bawah LS DAN di bawah HS
-      // Konsolidasi: CF di antara LS dan HS (termasuk LS dan HS)
-      let sentimentSignalClass = ''; // Kelas CSS untuk ikon sinyal
-      let sentimentText = ''; // Teks sentimen
+      // --- Nentokna Sinyal Sentimen (SI) miturut aturan sing dijaluk ---
+      // Aturan sinyal:
+      // Bullish (Ijo): CF nang nduwure LS LAN nang nduwure HS pisan
+      // Bearish (Abang): CF nang ngisore LS LAN nang ngisore HS pisan
+      // Konsolidasi (Kuning): CF nang antarane LS karo HS (termasuk pas nang LS utawa HS)
+      let sentimentSignalClass = ''; // Nggo nyimpen kelas CSS nggo warna ikon sinyal
+      let sentimentText = ''; // Nggo nyimpen teks sentimen (Bullish/Bearish/Konsolidasi)
 
-      if (cf > ls && cf > hs) { // Logika Bullish sesuai permintaan user
-          sentimentSignalClass = 'signal-bu'; // Hijau
+      if (cf > ls && cf > hs) { // Kondisi Bullish
+          sentimentSignalClass = 'signal-bu'; // Kelas CSS nggo warna ijo
           sentimentText = 'Bullish';
-      } else if (cf < ls && cf < hs) { // Logika Bearish sesuai permintaan user
-          sentimentSignalClass = 'signal-be'; // Merah
+      } else if (cf < ls && cf < hs) { // Kondisi Bearish
+          sentimentSignalClass = 'signal-be'; // Kelas CSS nggo warna abang
           sentimentText = 'Bearish';
-      } else { // Jika tidak Bullish atau Bearish, berarti Konsolidasi
-          sentimentSignalClass = 'signal-k'; // Kuning
+      } else { // Nek ora Bullish utawa Bearish, berarti Konsolidasi
+          sentimentSignalClass = 'signal-k'; // Kelas CSS nggo warna kuning
           sentimentText = 'Konsolidasi';
       }
 
 
-      // --- Menampilkan Hasil di Card Utama (PP, Sesi, Sinyal) ---
-      const pivotSesiElement = document.getElementById('pivotSesi');
-      // Menambahkan teks sentimen ke dalam card
+      // --- Nampilna Hasil nang Card Utama (PP, Sesi, Sinyal) ---
+      const pivotSesiElement = document.getElementById('pivotSesi'); // Pilih elemen nggo nampilna PP, Sesi, Sinyal
+      // Ngisi elemen kuwe nganggo HTML sing isine PP, Sesi, karo Teks+Ikon Sinyal
       pivotSesiElement.innerHTML = `
-          <span>PP: ${pp.toFixed(2)}</span>
-          <span>MS: ${kodeNegara}</span>
-          <span> ${sentimentText} <span class="sentiment-signal-icon ${sentimentSignalClass}">●</span></span>
-      `;
+          <span>PP: ${pp.toFixed(2)}</span> <span>MS: ${kodeNegara}</span> <span> ${sentimentText} <span class="sentiment-signal-icon ${sentimentSignalClass}">●</span></span> `;
 
-      // --- Menghitung dan Menampilkan Tabel Distribusi (DI) dan Akumulasi (AK) ---
-      // Fungsi helper untuk menghitung level dengan multiplier tertentu
+      // --- Ngitung lan Nampilna Tabel Distribusi (DI) lan Akumulasi (AK) ---
+      // Fungsi bantu (helper) nggo ngitung level DI/AK nganggo multiplier tertentu
       const calcNode = (ppValue, rangeValue, multiplier, operation) => {
-          // Pastikan rangeValue bukan nol untuk menghindari pembagian dengan nol
+          // Mestikna Range (rangeValue) ora nol ben ora ana pembagian karo nol
           if (rangeValue === 0) {
-              // Jika range 0, level distribusi/akumulasi sama dengan PP
-              return ppValue.toFixed(2);
+              // Nek Range = 0, kabeh level DI/AK pada karo PP
+              return ppValue.toFixed(2); // Balikna PP dibuletna 2 angka mburi koma
           }
-          if (operation === '+') {
-              return (ppValue + rangeValue * multiplier).toFixed(2);
-          } else if (operation === '-') {
-              return (ppValue - rangeValue * multiplier).toFixed(2);
+          if (operation === '+') { // Nek operasine tambah (Distribusi)
+              return (ppValue + rangeValue * multiplier).toFixed(2); // Itung PP + (R * M), buletna
+          } else if (operation === '-') { // Nek operasine kurang (Akumulasi)
+              return (ppValue - rangeValue * multiplier).toFixed(2); // Itung PP - (R * M), buletna
           }
-          return 'Error'; // Should not happen
+          return 'Error'; // Kudune ora mungkin tekan kene
       };
 
-      // Multiplier yang digunakan
+      // Multiplier (M) sing digunakna nang tabel
       const multipliers = {
           '0.5': 0.5,
-          '1.618': 1.618,
+          '1.618': 1.618, // Golden Ratio
           '2.618': 2.618,
           '4.236': 4.236
       };
 
-      // Mengisi tabel Distribusi (PP + R * M)
+      // Ngisi sel-sel tabel Distribusi (PP + R * M) nganggo fungsi calcNode
       document.getElementById('dist0_5').textContent  = calcNode(pp, range, multipliers['0.5'], '+');
       document.getElementById('dist1_618').textContent = calcNode(pp, range, multipliers['1.618'], '+');
       document.getElementById('dist2_618').textContent = calcNode(pp, range, multipliers['2.618'], '+');
       document.getElementById('dist4_236').textContent = calcNode(pp, range, multipliers['4.236'], '+');
 
-      // Mengisi tabel Akumulasi (PP - R * M)
+      // Ngisi sel-sel tabel Akumulasi (PP - R * M) nganggo fungsi calcNode
       document.getElementById('acc0_5').textContent  = calcNode(pp, range, multipliers['0.5'], '-');
       document.getElementById('acc1_618').textContent = calcNode(pp, range, multipliers['1.618'], '-');
       document.getElementById('acc2_618').textContent = calcNode(pp, range, multipliers['2.618'], '-');
-      // Menggunakan ID yang sudah diperbaiki: acc4_236
+      // Nganggo ID sing bener: acc4_236
       document.getElementById('acc4_236').textContent = calcNode(pp, range, multipliers['4.236'], '-');
 
-      // Tampilkan area hasil utama jika belum terlihat
-      document.getElementById('result').style.display = 'flex';
+      // Tampilna kabeh bagian hasil (sing maune display: none) nek itungan wis rampung
+      document.getElementById('result').style.display = 'flex'; // Ganti display dadi flex ben katon
 
-      // --- Panggil fungsi untuk memperbarui visualisasi sentimen ---
-      // Menggunakan LS, HS, CF, dan PP untuk perhitungan visualisasi
+      // --- Ngundang fungsi nggo ngupdate visualisasi sentimen ---
+      // Ngirim nilai LS, HS, CF, karo PP sing nembe diitung maring fungsi visualisasi
       updateSentimentVisualization(lastCalculatedLS, lastCalculatedHS, lastCalculatedCF, lastCalculatedPP);
     }
 
-    // --- Fungsi untuk Visualisasi Sentimen (Garis Gradien dengan Marker) ---
-    // Fungsi ini menghitung posisi CF relatif terhadap rentang LS-HS dalam persentase untuk penempatan visual,
-    // DAN menghitung persentase sentimen berdasarkan formula user untuk teks label.
+    // --- Fungsi nggo Ngupdate Visualisasi Sentimen (Garis Gradien karo Marker) ---
+    // Fungsi kiye ngitung:
+    // 1. Posisi visual marker CF relatif maring rentang LS-HS (kanggo nggeser marker nang garis).
+    // 2. Persentase sentimen miturut rumus (PP-CF)/R (kanggo teks label nang ngisor marker).
     function updateSentimentVisualization(ls, hs, cf, pp) {
-        // Mendapatkan elemen-elemen visualisasi
-        const visualizationArea = document.getElementById('sentiment_visualization_area');
-        const cfMarker = document.getElementById('cf_marker');
-        const cfPercentageText = document.getElementById('cf_percentage');
-        const sentimentLineContainer = visualizationArea ? visualizationArea.querySelector('.sentiment-line-container') : null;
+        // Njikot elemen-elemen HTML sing dibutuhna nggo visualisasi
+        const visualizationArea = document.getElementById('sentiment_visualization_area'); // Area visualisasi utama
+        const cfMarker = document.getElementById('cf_marker'); // Marker (titik)
+        const cfPercentageText = document.getElementById('cf_percentage'); // Teks persentase
+        const sentimentLineContainer = visualizationArea ? visualizationArea.querySelector('.sentiment-line-container') : null; // Container garis
 
-        // Pastikan elemen-elemen ada dan data valid sebelum melanjutkan
+        // Validasi: Mestikna kabeh elemen ana lan data (ls, hs, cf, pp) kuwe angka valid sedurunge lanjut
         if (!visualizationArea || !cfMarker || !cfPercentageText || !sentimentLineContainer || isNaN(ls) || isNaN(hs) || isNaN(cf) || isNaN(pp)) {
-             // Sembunyikan visualisasi jika ada masalah
+             // Nek ana sing salah, delikna visualisasi
              visualizationArea.classList.remove('visualization-visible');
              visualizationArea.classList.add('visualization-hidden');
-             return;
+             return; // Metu sekang fungsi
         }
 
+        // Ngitung Range (HS - LS) maning (utawa nganggo variabel global nek ana)
         const range = hs - ls;
-         // Jika range nol, sembunyikan visualisasi karena tidak ada rentang LS-HS
+         // Validasi: Nek Range = 0 (HS pada karo LS), visualisasi ora ana artine, delikna bae
         if (range === 0) {
              visualizationArea.classList.remove('visualization-visible');
              visualizationArea.classList.add('visualization-hidden');
-             return;
+             return; // Metu sekang fungsi
         }
 
 
-        // jika CF berada di luar rentang pp - cf.
-        let visualPositionPercent = ((pp - cf) / range) * 100;
+        // Ngitung posisi CF relatif maring PP nang rentang Range, dadi persentase.
+        // Rumus: ((PP - CF) / Range) * 100
+        // Persentase kiye digunakna nggo nentokna posisi marker nang garis visual.
+        // Conto: Nek CF = PP, persentase = 0%. Nek CF = LS, persentase = 50%. Nek CF = HS, persentase = -50%.
+        let visualPositionPercent = ((pp - cf) / range) * 100 - 100;
 
-        // Hasil ini digunakan KHUSUS untuk teks label di bawah marker.
-        let sentimentPercentageForLabel = ((pp - cf) / range) * 100;
+        // Ngitung persentase sentimen nggo teks label nganggo rumus sing pada.
+        // Hasil kiye sing bakal ditampilna nang ngisor marker.
+        let sentimentPercentageForLabel = ((pp - cf) / range) * 100 - 100;
 
 
-        // --- Menentukan Warna Marker berdasarkan Posisi CF (Sinyal Sentimen) ---
-        // Warna marker mengikuti logika sinyal (BE, K, BU) sesuai permintaan user
-        let colorClass = '';
-        if (cf > ls && cf > hs) { // Logika Bullish sesuai permintaan user
-            colorClass = 'bu'; // Hijau
-        } else if (cf < ls && cf < hs) { // Logika Bearish sesuai permintaan user
-            colorClass = 'be'; // Merah
-        } else { // Jika tidak Bullish atau Bearish, berarti Konsolidasi
+        // --- Nentokna Warna Marker adhedhasar Posisi CF (Sinyal Sentimen) ---
+        // Aturan warna marker ngetutna aturan sinyal sentimen sing wis ditentokna sedurunge
+        let colorClass = ''; // Nggo nyimpen akhiran kelas warna (be, k, bu)
+        if (cf > ls && cf > hs) { // Kondisi Bullish
+            colorClass = 'bu'; // Ijo
+        } else if (cf < ls && cf < hs) { // Kondisi Bearish
+            colorClass = 'be'; // Abang
+        } else { // Kondisi Konsolidasi
             colorClass = 'k'; // Kuning
         }
 
-        // --- Memperbarui Posisi Marker dan Teks pada Garis Visual ---
+        // --- Ngupdate Posisi Marker karo Teks nang Garis Visual ---
 
-        // Mendapatkan lebar kontainer garis untuk perhitungan piksel
-        const containerRect = sentimentLineContainer.getBoundingClientRect();
-        const containerWidth = containerRect.width;
-        const linePadding = 10; // Padding horizontal di CSS container
-        const lineWidth = containerWidth - 2 * linePadding; // Lebar area garis berwarna yang sebenarnya
+        // Njikot ukuran (ambane) container garis nggo itungan posisi piksel
+        const containerRect = sentimentLineContainer.getBoundingClientRect(); // Info ukuran karo posisi container
+        const containerWidth = containerRect.width; // Ambane container (piksel)
+        const linePadding = 10; // Padding kiwa-tengen container (kudu pada karo nang CSS)
+        const lineWidth = containerWidth - 2 * linePadding; // Ambane area garis warna sing asli (piksel)
 
-        // Menghitung posisi piksel marker relatif terhadap lebar garis berwarna [0, lineWidth]
-        // Menggunakan visualPositionPercent untuk penempatan visual
+        // Ngitung posisi marker nang njero garis warna (0 nganti lineWidth piksel)
+        // Nggunakna visualPositionPercent sing wis diitung sedurunge
+        // Posisi 0% = 0 piksel, 100% = lineWidth piksel
         let calculatedPixelPositionInLine = (visualPositionPercent / 100) * lineWidth;
 
-        // Batasi posisi piksel agar berada di dalam rentang piksel garis berwarna [0, lineWidth]
-        // Ini penting agar marker tidak keluar dari garis visual, meskipun persentase matematisnya < 0 atau > 100
+        // Mbatesi posisi piksel ben tetep nang njero garis warna (antarane 0 karo lineWidth)
+        // Penting nek visualPositionPercent nang njobo 0-100%, ben marker ora metu garis
         const clampedPixelPositionInLine = Math.max(0, Math.min(lineWidth, calculatedPixelPositionInLine));
 
-        // Menghitung posisi 'left' final untuk marker relatif terhadap kontainer garis
-        // Posisi 0px pada garis berwarna dimulai setelah padding kiri kontainer
+        // Ngitung posisi 'left' final nggo marker relatif maring container garis
+        // Ditambah padding kiri ben posisine pas nang nduwur garis warna
         const finalMarkerLeftPosition = linePadding + clampedPixelPositionInLine;
 
-        // Menerapkan posisi 'left' ke marker dan teks persentase
+        // Nerapna posisi 'left' sing wis diitung maring style marker karo teks persentase
         cfMarker.style.left = `${finalMarkerLeftPosition}px`;
-        // Posisikan teks persentase sedikit di bawah marker
+        // Teks persentase diposisikna nang ngisor marker (posisi kiwane pada)
         cfPercentageText.style.left = `${finalMarkerLeftPosition}px`;
 
 
-        // Menerapkan kelas warna ke marker dan teks persentase
-        cfMarker.className = `cf-marker marker-${colorClass}`;
-        cfPercentageText.className = `cf-percentage-text text-${colorClass}`;
+        // Nerapna kelas warna sing wis ditentokna maring marker karo teks persentase
+        cfMarker.className = `cf-marker marker-${colorClass}`; // Conto: cf-marker marker-bu
+        cfPercentageText.className = `cf-percentage-text text-${colorClass}`; // Conto: cf-percentage-text text-bu
 
-        // Memperbarui teks persentase di bawah marker menggunakan formula user
+        // Ngupdate teks persentase nang ngisor marker nganggo nilai sentimentPercentageForLabel
+        // Dibuletna 1 angka mburi koma
         let percentageLabel = `${sentimentPercentageForLabel.toFixed(1)}%`;
-        cfPercentageText.innerHTML = percentageLabel;
+        cfPercentageText.innerHTML = percentageLabel; // Ganti isi teks
 
-        // Tampilkan area visualisasi jika belum terlihat
-        if (!visualizationArea.classList.contains('visualization-visible')) {
-             visualizationArea.classList.remove('visualization-hidden');
-             visualizationArea.classList.add('visualization-visible');
+        // Tampilna area visualisasi nek maune didhelikna
+        if (!visualizationArea.classList.contains('visualization-visible')) { // Cek nek durung katon
+             visualizationArea.classList.remove('visualization-hidden'); // Ilangi kelas ndelikna
+             visualizationArea.classList.add('visualization-visible'); // Tambah kelas nampilna
         }
     }
     // --- Akhir Fungsi Visualisasi Sentimen ---
 
-    // --- Fungsi untuk Menampilkan Pesan Box Sederhana (pengganti alert) ---
+    // --- Fungsi nggo Nampilna Kotak Pesen Sederhana (pengganti alert) ---
     function showMessageBox(message) {
-        // Implementasi pesan box sederhana (bisa menggunakan div modal, dll.)
-        // Untuk saat ini, menggunakan alert() sebagai fallback atau placeholder
-        // Di lingkungan produksi, sebaiknya ganti dengan modal dialog kustom
-        alert(message);
+        // Saiki isih nganggo alert() bawaan browser.
+        // Nek arep luwih apik, kiye teyeng diganti nganggo modal dialog custom sing digawe karo HTML/CSS/JS.
+        alert(message); // Nampilna pesen nang kotak alert
     }
-    // --- Akhir Fungsi Pesan Box ---
+    // --- Akhir Fungsi Kotak Pesen ---
 
 
-    // --- JavaScript untuk Card Informasi Collapsible ---
+    // --- JavaScript nggo Kartu Informasi Sing Teyeng Dilipat ---
+    // Ngenteni kabeh elemen HTML siap sedurunge nglakokna kode iki
     document.addEventListener('DOMContentLoaded', function() {
+        // Pilih elemen header karo konten kartu info
         const infoCardHeader = document.getElementById('infoCardHeader');
         const infoCardContent = document.getElementById('infoCardContent');
 
+        // Mestikna keloro elemen kuwe ana
         if (infoCardHeader && infoCardContent) {
+            // Nambah event listener 'click' maring header kartu
             infoCardHeader.addEventListener('click', function() {
+                // Cek nek kartu lagi mbukak (duwe kelas 'expanded')
                 const isExpanded = infoCardContent.classList.contains('expanded');
                 if (isExpanded) {
-                    // Tutup card
-                    infoCardContent.classList.remove('expanded');
-                    infoCardHeader.classList.remove('expanded');
+                    // Nek lagi mbukak, tutup kartune
+                    infoCardContent.classList.remove('expanded'); // Ilangi kelas 'expanded' sekang konten
+                    infoCardHeader.classList.remove('expanded'); // Ilangi kelas 'expanded' sekang header (nggo muter panah)
                 } else {
-                    // Buka card
-                    infoCardContent.classList.add('expanded');
-                    infoCardHeader.classList.add('expanded');
+                    // Nek lagi nutup, buka kartune
+                    infoCardContent.classList.add('expanded'); // Tambah kelas 'expanded' maring konten
+                    infoCardHeader.classList.add('expanded'); // Tambah kelas 'expanded' maring header
                 }
             });
         }
     });
-    /* --- Akhir JavaScript Card Informasi Collapsible --- */
+    /* --- Akhir JavaScript Kartu Informasi Collapsible --- */
 
 
-    // Tambahkan event listener untuk resize window
-    // Ini penting agar posisi marker dihitung ulang jika ukuran layar berubah
+    // Nambah event listener nggo ngawasi nek ukuran jendela browser berubah (resize)
+    // Penting ben posisi marker visualisasi tetep akurat nek layar digedhekna/dicilikna
     window.addEventListener('resize', () => {
-        // Panggil updateSentimentVisualization dengan nilai LS, HS, CF, PP terakhir yang disimpan
-        // Hanya perbarui jika nilai terakhir ada dan visualisasi terlihat
+        // Ngundang fungsi updateSentimentVisualization maning nganggo nilai LS, HS, CF, PP terakhir sing disimpen
+        // Tapi, mung nek visualisasi lagi katon LAN nilai terakhir kuwe ana (ora null)
         const visualizationArea = document.getElementById('sentiment_visualization_area');
         if (visualizationArea && visualizationArea.classList.contains('visualization-visible') &&
             lastCalculatedLS !== null && lastCalculatedHS !== null && lastCalculatedCF !== null && lastCalculatedPP !== null) {
+            // Panggil fungsi update karo data sing wis disimpen
             updateSentimentVisualization(lastCalculatedLS, lastCalculatedHS, lastCalculatedCF, lastCalculatedPP);
         }
     });
 
-    // Opsional: Panggil calculate() saat halaman dimuat untuk menampilkan hasil awal
-    // jika input default terisi atau jika kamu ingin hasil langsung muncul.
-    // calculate();
+    // Opsional: Nek pengin ana hasil awal pas halaman pertama dibuka (misale nganggo nilai default),
+    // teyeng ngundang fungsi calculate() nang kene.
+    // calculate(); // (Baris iki saiki dikomentari, ora aktif)
 
   </script>
 </body>
