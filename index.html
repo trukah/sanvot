@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SanClass Trading Labs</title>
+    <style>
+        /* Reset dan Variabel */
+        :root {
+            --primary-color: #2196f3;
+            --secondary-color: #0d47a1;
+            --accent-color: #ff4081;
+            --success-color: #2196f3; /* Biru */
+            --success-color-strong: #1976d2; /* Biru yang lebih kuat untuk visibilitas */
+            --danger-color: #ff4081; /* Pink */
+            --warning-color: #ffc107;
+            --text-dark: #333;
+            --text-light: #eee;
+            --bg-blur: rgba(255, 255, 255, 0.1);
+            --bg-glass: rgba(255, 255, 255, 0.15);
+            --border-radius: 16px;
+            --shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            --level-highlight: rgba(33, 150, 243, 0.12);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1a237e, #0d47a1, #0288d1);
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--text-light);
+        }
+
+        /* Container Utama */
+        .container {
+            width: 100%;
+            max-width: 800px;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            padding: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 25px;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-icon {
+            font-size: 28px;
+            margin-right: 10px;
+            color: var(--accent-color);
+            text-shadow: 0 0 10px rgba(255, 64, 129, 0.5);
+        }
+
+        .logo-text {
+            font-weight: bold;
+            color: var(--text-light);
+            font-size: 22px;
+            letter-spacing: 1px;
+        }
+
+        .company-name {
+            color: var(--text-light);
+            font-size: 14px;
+            opacity: 0.8;
+        }
+
+        h1 {
+            color: var(--text-light);
+            font-size: 28px;
+            margin-bottom: 15px;
+            text-align: center;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        h2 {
+            color: var(--text-light);
+            font-size: 18px;
+            margin-bottom: 25px;
+            text-align: center;
+            opacity: 0.9;
+            font-weight: 400;
+        }
+
+        /* Form */
+        .form-group {
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            color: var(--text-light);
+            font-weight: 400;
+            letter-spacing: 0.5px;
+        }
+
+        .input-with-icon {
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+
+        .input-with-icon input {
+            width: 100%;
+            padding: 14px 40px 14px 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: var(--border-radius);
+            font-size: 16px;
+            transition: all 0.3s;
+            color: var(--text-light);
+            backdrop-filter: blur(5px);
+        }
+
+        .input-with-icon input:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 15px rgba(255, 64, 129, 0.3);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .input-with-icon input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .input-icon {
+            position: absolute;
+            right: 15px;
+            color: var(--accent-color);
+            font-size: 18px;
+        }
+
+        /* Session Selection */
+        .session-container {
+            margin-bottom: 25px;
+        }
+
+        .sessions {
+            display: flex;
+            justify-content: space-between;
+            padding: 0 20%;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: var(--border-radius);
+            padding: 12px 20px;
+            backdrop-filter: blur(5px);
+        }
+
+        .session-option {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            color: var(--text-light);
+        }
+
+        .session-option input {
+            margin-right: 8px;
+            accent-color: var(--accent-color);
+        }
+
+        .hint-text {
+            font-size: 14px;
+            color: var(--accent-color);
+            margin-top: 8px;
+            text-align: center;
+            font-style: italic;
+        }
+
+        /* Collapsible */
+        .collapsible {
+            color: var(--text-dark);
+            cursor: pointer;
+            padding: 14px 20px;
+            width: 100%;
+            border: none;
+            text-align: left;
+            outline: none;
+            font-size: 16px;
+            border-radius: var(--border-radius);
+            transition: 0.3s;
+            margin-top: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: blur(5px);
+        }
+
+        .collapsible-info {
+            background-color: rgba(255, 193, 7, 0.8);
+            border: 1px solid rgba(255, 193, 7, 0.9);
+            font-weight: 500;
+        }
+
+        .collapsible-info:hover {
+            background-color: rgba(255, 193, 7, 0.9);
+        }
+
+        .collapsible-disclaimer {
+            background-color: rgba(255, 193, 7, 0.8);
+            border: 1px solid rgba(255, 193, 7, 0.9);
+            font-weight: 500;
+        }
+
+        .collapsible-disclaimer:hover {
+            background-color: rgba(255, 193, 7, 0.9);
+        }
+
+        .collapsible:after {
+            content: '\002B';
+            font-weight: bold;
+            margin-left: 5px;
+        }
+
+        .active:after {
+            content: "\2212";
+        }
+
+        .content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 0 0 var(--border-radius) var(--border-radius);
+            padding: 0 20px;
+        }
+
+        .content p {
+            margin: 15px 0;
+            text-align: justify;
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        /* Output Section */
+        .output-container {
+            margin-top: 30px;
+            display: none;
+        }
+
+        .pivot-signal {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(12px);
+            padding: 20px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .pivot-value {
+            font-weight: bold;
+            font-size: 20px;
+            color: var(--text-light);
+        }
+
+        .signal {
+            padding: 8px 16px;
+            border-radius: 30px;
+            font-weight: 500;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .bullish {
+            background-color: var(--success-color-strong); /* Menggunakan warna biru yang lebih kuat */
+            color: white;
+            box-shadow: 0 4px 15px rgba(33, 150, 243, 0.5); /* Menambahkan bayangan untuk menonjolkan */
+        }
+
+        .bearish {
+            background-color: var(--danger-color);
+            color: white;
+            box-shadow: 0 4px 15px rgba(255, 64, 129, 0.5); /* Menambahkan bayangan untuk menonjolkan */
+        }
+
+        .sideways {
+            background-color: var(--warning-color);
+            color: var(--text-dark);
+            box-shadow: 0 4px 15px rgba(255, 193, 7, 0.5); /* Menambahkan bayangan untuk menonjolkan */
+        }
+
+        /* Progress Bar */
+        .sentiment-bar-container {
+            margin: 20px 0;
+            background: rgba(255, 255, 255, 0.15); /* Sedikit lebih kuat untuk kontras */
+            padding: 15px;
+            border-radius: var(--border-radius);
+            backdrop-filter: blur(5px);
+            box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.15); /* Menambahkan bayangan dalam */
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .sentiment-percentage {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .bearish-percent {
+            color: var(--danger-color);
+            font-weight: bold;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3); /* Bayangan teks untuk keterbacaan */
+        }
+
+        .bullish-percent {
+            color: var(--success-color-strong); /* Menggunakan warna biru yang lebih kuat agar senada dengan bar */
+            font-weight: bold;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3); /* Bayangan teks untuk keterbacaan */
+        }
+
+        .sentiment-bar {
+            height: 12px;
+            border-radius: 6px;
+            overflow: hidden;
+            display: flex;
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.2);
+            background: rgba(0, 0, 0, 0.2); /* Background gelap untuk kontras */
+        }
+
+        .bearish-bar {
+            background-color: var(--danger-color);
+            height: 100%;
+            border-right: 1px solid rgba(255, 255, 255, 0.3); /* Separator tipis */
+            box-shadow: 0 0 8px rgba(255, 64, 129, 0.5); /* Glow effect */
+        }
+
+        .bullish-bar {
+            background-color: var(--success-color-strong); /* Warna biru lebih kuat */
+            height: 100%;
+            border-left: 1px solid rgba(255, 255, 255, 0.3); /* Separator tipis */
+            box-shadow: 0 0 8px rgba(33, 150, 243, 0.5); /* Glow effect */
+        }
+
+        /* Tables */
+        .table-container {
+            margin-top: 20px;
+        }
+
+        .table-header {
+            color: white;
+            padding: 12px 20px;
+            border-radius: var(--border-radius) var(--border-radius) 0 0;
+            font-weight: 500;
+            text-align: center;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .accumulation-header {
+            background: linear-gradient(135deg, #1976d2, #2196f3); /* Gradient biru yang lebih senada */
+            box-shadow: 0 4px 15px rgba(33, 150, 243, 0.4); /* Bayangan biru */
+        }
+
+        .distribution-header {
+            background: linear-gradient(135deg, #c2185b, #ff4081);
+            box-shadow: 0 4px 15px rgba(255, 64, 129, 0.4); /* Bayangan pink */
+        }
+
+        .table-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(8px);
+            border-radius: 0 0 var(--border-radius) var(--border-radius);
+        }
+
+        .table-expanded {
+            max-height: 1000px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 0;
+        }
+
+        th, td {
+            padding: 12px 20px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+         td {
+             color: var(--text-light); /* Default text color */
+         }
+
+
+        td:last-child {
+            text-align: right;
+            font-weight: 500;
+        }
+
+        th {
+            background-color: rgba(255, 255, 255, 0.05);
+            color: var(--text-light);
+        }
+
+        /* Highlight blue */
+        .highlight-row {
+            background-color: rgba(33, 150, 243, 0.15); /* Sedikit lebih kuat */
+        }
+
+        /* Highlight yellow */
+        .highlight-yellow {
+            background-color: rgba(255, 193, 7, 0.2); /* Kuning transparan */
+        }
+
+        /* Highlight specific for multiplier 2 accumulation (White BG, Pink Text) */
+        .acc-m2-highlight {
+            background-color: white;
+            color: var(--danger-color); /* Pink */
+        }
+
+         .acc-m2-highlight td {
+             color: var(--danger-color); /* Pink */
+         }
+
+
+        /* Highlight specific for multiplier 2 distribution (White BG, Blue Text) */
+        .dist-m2-highlight {
+            background-color: white;
+            color: var(--success-color-strong); /* Biru */
+        }
+
+         .dist-m2-highlight td {
+             color: var(--success-color-strong); /* Biru */
+         }
+
+
+        /* Disclaimer */
+        .disclaimer {
+            font-size: 14px;
+            color: var(--text-light);
+            line-height: 1.5;
+            text-align: justify;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+
+            .sessions {
+                padding: 10px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo-container">
+                <div class="logo-icon">⚡</div>
+                <div class="logo-text">Quantai</div>
+            </div>
+            <div class="company-name">Sanva Indonesia</div>
+        </div>
+
+        <h1>SanClass Trading Labs</h1>
+        <h2>Input harga dengan benar...</h2>
+
+        <div class="form-group">
+            <label for="volatility">Votalitas Factor</label>
+            <div class="input-with-icon">
+                <input type="number" id="volatility" placeholder="Masukkan nilai volatilitas...">
+                <span class="input-icon">📊</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="closed">Closed Factor</label>
+            <div class="input-with-icon">
+                <input type="number" id="closed" placeholder="Masukkan nilai closed...">
+                <span class="input-icon">🔒</span>
+            </div>
+        </div>
+
+        <div class="session-container">
+            <div class="sessions">
+                <label class="session-option">
+                    <input type="radio" name="session" value="ER"> ER
+                </label>
+                <label class="session-option">
+                    <input type="radio" name="session" value="AS"> AS
+                </label>
+                <label class="session-option">
+                    <input type="radio" name="session" value="AM"> AM
+                </label>
+            </div>
+            <p class="hint-text">Jangan salah pilih sesi Trading..</p>
+        </div>
+
+        <button class="collapsible collapsible-info">Cara Penggunaan...</button>
+        <div class="content">
+            <p>1. Masukkan nilai Volatilitas Factor (biasanya nilai tertinggi pada sesi trading).</p>
+            <p>2. Masukkan nilai Closed Factor (biasanya nilai terakhir pada sesi trading).</p>
+            <p>3. Pilih sesi trading yang sesuai (ER untuk Eropa, AS untuk Asia, AM untuk Amerika).</p>
+            <p>4. Hasil analisis akan muncul secara otomatis setelah semua data dimasukkan.</p>
+        </div>
+
+        <div class="output-container" id="outputContainer">
+            <div class="pivot-signal">
+                <div class="pivot-value">PP: <span id="pivotValue">0.00</span></div>
+                <div class="signal" id="signalIndicator">Neutral</div>
+            </div>
+
+            <div class="sentiment-bar-container">
+                <div class="sentiment-percentage">
+                    <div class="bearish-percent"><span id="bearishPercent">0</span>%</div>
+                    <div class="bullish-percent"><span id="bullishPercent">0</span>%</div>
+                </div>
+                <div class="sentiment-bar">
+                    <div class="bearish-bar" id="bearishBar"></div>
+                    <div class="bullish-bar" id="bullishBar"></div>
+                </div>
+            </div>
+
+            <div class="table-container">
+                <div class="table-header accumulation-header" id="accumulationHeader">Akumulasi</div>
+                <div class="table-content" id="accumulationContent">
+                    <table>
+                        <tbody id="accumulationTable">
+                            </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="table-container">
+                <div class="table-header distribution-header" id="distributionHeader">Distribusi</div>
+                <div class="table-content" id="distributionContent">
+                    <table>
+                        <tbody id="distributionTable">
+                            </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <button class="collapsible collapsible-disclaimer">Disclaimer & Core</button>
+            <div class="content">
+                <p class="disclaimer">
+                    Analisis yang disediakan oleh SanClass Trading Labs hanya untuk tujuan informasi dan pembelajaran.
+                    Keputusan trading berdasarkan analisis ini sepenuhnya menjadi tanggung jawab pengguna.
+                </p>
+                <p>Core Trigger: <span id="coreValue">0.00</span>%</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Collapsible functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const collapsibles = document.querySelectorAll(".collapsible");
+
+            collapsibles.forEach(collapsible => {
+                collapsible.addEventListener("click", function() {
+                    this.classList.toggle("active");
+                    const content = this.nextElementSibling;
+                    if (content.style.maxHeight) {
+                        content.style.maxHeight = null;
+                    } else {
+                        content.style.maxHeight = content.scrollHeight + "px";
+                    }
+                });
+            });
+
+            // Table headers click event
+            document.getElementById("accumulationHeader").addEventListener("click", function() {
+                document.getElementById("accumulationContent").classList.toggle("table-expanded");
+            });
+
+            document.getElementById("distributionHeader").addEventListener("click", function() {
+                document.getElementById("distributionContent").classList.toggle("table-expanded");
+            });
+
+            // Input and calculation logic
+            const volatilityInput = document.getElementById("volatility");
+            const closedInput = document.getElementById("closed");
+            const sessionRadios = document.querySelectorAll('input[name="session"]');
+            const outputContainer = document.getElementById("outputContainer");
+
+            // Calculate function
+            function calculateTrading() {
+                // Check if all inputs are filled
+                const vf = parseFloat(volatilityInput.value);
+                const cf = parseFloat(closedInput.value);
+                let sf = 0;
+
+                // Get selected session
+                for (const radio of sessionRadios) {
+                    if (radio.checked) {
+                        switch(radio.value) {
+                            case "ER": sf = 8; break;
+                            case "AS": sf = 21; break;
+                            case "AM": sf = 13; break;
+                        }
+                    }
+                }
+
+                // If all values are present, calculate
+                if (!isNaN(vf) && !isNaN(cf) && sf > 0) {
+                    // Show output container
+                    outputContainer.style.display = "block";
+
+                    // Basic calculations
+                    const hs = vf + sf;
+                    const ls = vf - sf;
+                    const range = hs - ls;
+                    const pp = (hs + ls + cf) / 3;
+
+                    // Determine signal
+                    let signal = "Konsolidasi";
+                    let signalClass = "sideways";
+
+                    if (cf > hs && cf > ls) {
+                        signal = "Bullish";
+                        signalClass = "bullish";
+                    } else if (cf < ls && cf < hs) {
+                        signal = "Bearish";
+                        signalClass = "bearish";
+                    }
+
+                    // Core calculation
+                    const core = ((pp - cf) / range) * 100;
+
+                    // Update pivot and signal
+                    document.getElementById("pivotValue").textContent = pp.toFixed(2);
+                    const signalElement = document.getElementById("signalIndicator");
+                    signalElement.textContent = signal;
+                    signalElement.className = "signal " + signalClass;
+
+                    // Sentiment bar calculation
+                    const d = pp + (range * 3);
+                    const a = pp - (range * 3);
+                    const pBar = ((cf - a) / (d - a)) * 100;
+                    const bullishPct = Math.max(0, Math.min(100, pBar));
+                    const bearishPct = 100 - bullishPct;
+
+                    document.getElementById("bullishBar").style.width = bullishPct + "%";
+                    document.getElementById("bearishBar").style.width = bearishPct + "%";
+                    document.getElementById("bullishPercent").textContent = Math.round(bullishPct);
+                    document.getElementById("bearishPercent").textContent = Math.round(bearishPct);
+
+                    // Level calculations
+                    const multipliers = [
+                        { value: 0.5, type: "ac/dc", highlightBlue: true, highlightYellow: true },
+                        { value: 1.618, type: "target-snr", highlightBlue: false, highlightYellow: false },
+                        { value: 2, type: "ac/dc", highlightBlue: false, highlightYellow: true, highlightAccPink: true, highlightDistBlue: true }, /* Added highlightAccPink and highlightDistBlue */
+                        { value: 2.618, type: "target-snr", highlightBlue: false, highlightYellow: false },
+                        { value: 3, type: "ac/dc", highlightBlue: false, highlightYellow: true },
+                        { value: 4.236, type: "target-snr", highlightBlue: false, highlightYellow: false },
+                        { value: 4.5, type: "ac/dc", highlightBlue: false, highlightYellow: false }
+                    ];
+
+                    // Clear tables
+                    const accTable = document.getElementById("accumulationTable");
+                    const distTable = document.getElementById("distributionTable");
+                    accTable.innerHTML = '';
+                    distTable.innerHTML = '';
+
+                    // Fill tables
+                    multipliers.forEach(m => {
+                        // Distribution levels
+                        const distLevel = cf + (range * m.value);
+                        const distRow = document.createElement("tr");
+
+                        // Apply specific highlight for multiplier 2 distribution
+                        if (m.value === 2 && m.highlightDistBlue) {
+                             distRow.classList.add("dist-m2-highlight");
+                        } else {
+                            if (m.highlightBlue) {
+                                distRow.classList.add("highlight-row");
+                            }
+                             if (m.highlightYellow) {
+                                distRow.classList.add("highlight-yellow");
+                            }
+                        }
+
+
+                        let distLabel = "";
+                        if (m.type === "ac/dc") {
+                            distLabel = m.value < 1 ? `Berpotensi DC-` : `Berpotensi DC+`;
+                        } else if (m.type === "target-snr") {
+                            distLabel = `Target S&R ${m.value}`;
+                        } else {
+                             distLabel = `Target Bullish`;
+                        }
+
+
+                        distRow.innerHTML = `
+                            <td>${distLabel}</td>
+                            <td>${distLevel.toFixed(2)}</td>
+                        `;
+                        distTable.appendChild(distRow);
+
+                        // Accumulation levels
+                        const accLevel = cf - (range * m.value);
+                        const accRow = document.createElement("tr");
+
+                        // Apply specific highlight for multiplier 2 accumulation
+                        if (m.value === 2 && m.highlightAccPink) {
+                             accRow.classList.add("acc-m2-highlight");
+                        } else {
+                            if (m.highlightBlue) {
+                                accRow.classList.add("highlight-row");
+                            }
+                            if (m.highlightYellow) {
+                                accRow.classList.add("highlight-yellow");
+                            }
+                        }
+
+
+                        let accLabel = "";
+                        if (m.type === "ac/dc") {
+                            accLabel = m.value < 1 ? `Berpotensi AC-` : `Berpotensi AC+`;
+                        } else if (m.type === "target-snr") {
+                             accLabel = `Target S&R ${m.value}`;
+                        } else {
+                             accLabel = `Target Bearish`;
+                        }
+
+
+                        accRow.innerHTML = `
+                            <td>${accLabel}</td>
+                            <td>${accLevel.toFixed(2)}</td>
+                        `;
+                        accTable.appendChild(accRow);
+                    });
+
+                    // Update core value
+                    document.getElementById("coreValue").textContent = core.toFixed(2);
+                }
+            }
+
+            // Add event listeners
+            volatilityInput.addEventListener("input", calculateTrading);
+            closedInput.addEventListener("input", calculateTrading);
+            sessionRadios.forEach(radio => {
+                radio.addEventListener("change", calculateTrading);
+            });
+        });
+    </script>
+</body>
+</html>
