@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SanClass Trading Labs</title>
+    <style>
+        /* Reset dan Variabel */
+        :root {
+            --primary-color: #0066b3;
+            --secondary-color: #006aa6;
+            --accent-color: #0095ff;
+            --success-color: #4caf50;
+            --danger-color: #f44336;
+            --warning-color: #ffc107;
+            --text-dark: #333;
+            --text-light: #777;
+            --bg-light: #f8f9fa;
+            --bg-white: #ffffff;
+            --border-radius: 12px;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            --level-highlight: #e3f2fd;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Container Utama */
+        .container {
+            width: 100%;
+            max-width: 800px;
+            background-color: var(--bg-white);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            padding: 25px;
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-icon {
+            font-size: 24px;
+            margin-right: 10px;
+            color: var(--accent-color);
+        }
+
+        .logo-text {
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .company-name {
+            color: var(--text-dark);
+            font-size: 14px;
+        }
+
+        h1 {
+            color: var(--text-dark);
+            font-size: 24px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        h2 {
+            color: var(--text-dark);
+            font-size: 18px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        /* Form */
+        .form-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text-dark);
+            font-weight: 500;
+        }
+
+        .input-with-icon {
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+
+        .input-with-icon input {
+            width: 100%;
+            padding: 12px 40px 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        .input-with-icon input:focus {
+            outline: none;
+            border-color: var(--accent-color);
+        }
+
+        .input-icon {
+            position: absolute;
+            right: 15px;
+            color: var(--text-light);
+            font-size: 18px;
+        }
+
+        /* Session Selection - IMPROVED: justified alignment */
+        .session-container {
+            margin-bottom: 15px;
+        }
+
+        .session-title {
+            font-weight: 500;
+            margin-bottom: 10px;
+            color: var(--text-dark);
+        }
+
+        .sessions {
+            display: flex;
+            justify-content: space-between; /* IMPROVED: even spacing */
+            padding: 0 20%; /* IMPROVED: center the options with padding */
+        }
+
+        .session-option {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .session-option input {
+            margin-right: 6px;
+        }
+
+        .hint-text {
+            font-size: 14px;
+            color: var(--text-light);
+            margin-top: 5px;
+            text-align: center;
+        }
+
+        /* Collapsible - IMPROVED: different colors */
+        .collapsible {
+            color: var(--text-dark);
+            cursor: pointer;
+            padding: 12px;
+            width: 100%;
+            border: none;
+            text-align: left;
+            outline: none;
+            font-size: 16px;
+            border-radius: var(--border-radius);
+            transition: 0.3s;
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .collapsible-info {
+            background-color: var(--accent-color);
+            color: white;
+        }
+
+        .collapsible-info:hover {
+            background-color: #0084e0;
+        }
+
+        .collapsible-disclaimer {
+            background-color: var(--accent-color);
+            color: white;
+        }
+
+        .collapsible-disclaimer:hover {
+            background-color: #0084e0;
+        }
+
+        .collapsible:after {
+            content: '\002B';
+            font-weight: bold;
+            margin-left: 5px;
+        }
+
+        .active:after {
+            content: "\2212";
+        }
+
+        .content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.2s ease-out;
+            background-color: var(--bg-white);
+            border-radius: 0 0 var(--border-radius) var(--border-radius);
+            padding: 0 15px;
+        }
+
+        .content p {
+            margin: 15px 0;
+            text-align: justify;
+            color: var(--text-dark);
+            line-height: 1.5;
+        }
+
+        /* Output Section */
+        .output-container {
+            margin-top: 25px;
+            display: none;
+        }
+
+        .pivot-signal {
+            background-color: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(8px);
+            padding: 15px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .pivot-value {
+            font-weight: bold;
+            font-size: 18px;
+            color: var(--text-dark);
+        }
+
+        .signal {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-weight: 500;
+            text-align: center;
+        }
+
+        .bullish {
+            background-color: var(--success-color);
+            color: white;
+        }
+
+        .bearish {
+            background-color: var(--danger-color);
+            color: white;
+        }
+
+        .sideways {
+            background-color: var(--warning-color);
+            color: white;
+        }
+
+        /* Progress Bar - IMPROVED: added percentage display */
+        .sentiment-bar-container {
+            margin: 15px 0;
+        }
+
+        .sentiment-percentage {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+
+        .bearish-percent {
+            color: var(--danger-color);
+            font-weight: bold;
+        }
+
+        .bullish-percent {
+            color: var(--success-color);
+            font-weight: bold;
+        }
+
+        .sentiment-bar {
+            height: 10px;
+            border-radius: 5px;
+            overflow: hidden;
+            display: flex;
+        }
+
+        .bearish-bar {
+            background-color: var(--danger-color);
+            height: 100%;
+        }
+
+        .bullish-bar {
+            background-color: var(--success-color);
+            height: 100%;
+        }
+
+        /* Tables - IMPROVED: different color headers */
+        .table-container {
+            margin-top: 15px;
+        }
+
+        .table-header {
+            color: white;
+            padding: 10px 15px;
+            border-radius: var(--border-radius) var(--border-radius) 0 0;
+            font-weight: 500;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .accumulation-header {
+            background-color: var(--success-color);
+        }
+
+        .distribution-header {
+            background-color: var(--danger-color);
+        }
+
+        .table-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+
+        .table-expanded {
+            max-height: 1000px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 15px;
+        }
+
+        th, td {
+            padding: 10px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        td:last-child {
+            text-align: right;
+            font-weight: 500;
+        }
+
+        th {
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+        }
+
+        /* IMPROVED: highlight low multipliers */
+        .highlight-row {
+            background-color: var(--level-highlight);
+        }
+
+        /* Disclaimer */
+        .disclaimer {
+            font-size: 14px;
+            color: var(--text-dark);
+            line-height: 1.4;
+            text-align: justify;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .sessions {
+                padding: 0 5%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="logo-container">
+                <div class="logo-icon">💡</div>
+                <div class="logo-text">Quantai</div>
+            </div>
+            <div class="company-name">Sanva Indonesia</div>
+        </div>
+
+        <h1>SanClass Trading Labs</h1>
+        <h2>Input harga dengan benar...</h2>
+
+        <!-- Form Inputs -->
+        <div class="form-group">
+            <label for="volatility">Votalitas Factor</label>
+            <div class="input-with-icon">
+                <input type="number" id="volatility" placeholder="Masukkan nilai volatilitas...">
+                <span class="input-icon">📊</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="closed">Closed Factor</label>
+            <div class="input-with-icon">
+                <input type="number" id="closed" placeholder="Masukkan nilai closed...">
+                <span class="input-icon">🔒</span>
+            </div>
+        </div>
+
+        <!-- Session Selection - IMPROVED: justify layout -->
+        <div class="session-container">
+            <div class="session-title">Hitung:</div>
+            <div class="sessions">
+                <label class="session-option">
+                    <input type="radio" name="session" value="ER"> ER
+                </label>
+                <label class="session-option">
+                    <input type="radio" name="session" value="AS"> AS
+                </label>
+                <label class="session-option">
+                    <input type="radio" name="session" value="AM"> AM
+                </label>
+            </div>
+            <p class="hint-text">Jangan salah pilih sesi Trading..</p>
+        </div>
+
+        <!-- Collapsible Info - IMPROVED: blue background -->
+        <button class="collapsible collapsible-info">Cara Penggunaan...</button>
+        <div class="content">
+            <p>1. Masukkan nilai Volatilitas Factor (biasanya nilai tertinggi pada sesi trading).</p>
+            <p>2. Masukkan nilai Closed Factor (biasanya nilai terakhir pada sesi trading).</p>
+            <p>3. Pilih sesi trading yang sesuai (ER untuk Eropa, AS untuk Asia, AM untuk Amerika).</p>
+            <p>4. Hasil analisis akan muncul secara otomatis setelah semua data dimasukkan.</p>
+        </div>
+
+        <!-- Output -->
+        <div class="output-container" id="outputContainer">
+            <!-- Pivot & Signal -->
+            <div class="pivot-signal">
+                <div class="pivot-value">PP: <span id="pivotValue">0.00</span></div>
+                <div class="signal" id="signalIndicator">Neutral</div>
+            </div>
+
+            <!-- Sentiment Bar - IMPROVED: added percentage display -->
+            <div class="sentiment-bar-container">
+                <div class="sentiment-percentage">
+                    <div class="bearish-percent"><span id="bearishPercent">0</span>%</div>
+                    <div class="bullish-percent"><span id="bullishPercent">0</span>%</div>
+                </div>
+                <div class="sentiment-bar">
+                    <div class="bearish-bar" id="bearishBar"></div>
+                    <div class="bullish-bar" id="bullishBar"></div>
+                </div>
+            </div>
+
+            <!-- Akumulasi - IMPROVED: green header -->
+            <div class="table-container">
+                <div class="table-header accumulation-header" id="accumulationHeader">Akumulasi</div>
+                <div class="table-content" id="accumulationContent">
+                    <table>
+                        <tbody id="accumulationTable">
+                            <!-- Data akan diisi oleh JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Distribusi - IMPROVED: red header -->
+            <div class="table-container">
+                <div class="table-header distribution-header" id="distributionHeader">Distribusi</div>
+                <div class="table-content" id="distributionContent">
+                    <table>
+                        <tbody id="distributionTable">
+                            <!-- Data akan diisi oleh JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Disclaimer - IMPROVED: blue background -->
+            <button class="collapsible collapsible-disclaimer">Disclaimer & Core</button>
+            <div class="content">
+                <p class="disclaimer">
+                    Analisis yang disediakan oleh SanClass Trading Labs hanya untuk tujuan informasi dan pembelajaran. 
+                    Keputusan trading berdasarkan analisis ini sepenuhnya menjadi tanggung jawab pengguna.
+                </p>
+                <p>Core Trigger: <span id="coreValue">0.00</span>%</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Collapsible functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const collapsibles = document.querySelectorAll(".collapsible");
+
+            collapsibles.forEach(collapsible => {
+                collapsible.addEventListener("click", function() {
+                    this.classList.toggle("active");
+                    const content = this.nextElementSibling;
+                    if (content.style.maxHeight) {
+                        content.style.maxHeight = null;
+                    } else {
+                        content.style.maxHeight = content.scrollHeight + "px";
+                    }
+                });
+            });
+
+            // Table headers click event
+            document.getElementById("accumulationHeader").addEventListener("click", function() {
+                document.getElementById("accumulationContent").classList.toggle("table-expanded");
+            });
+
+            document.getElementById("distributionHeader").addEventListener("click", function() {
+                document.getElementById("distributionContent").classList.toggle("table-expanded");
+            });
+
+            // Input and calculation logic
+            const volatilityInput = document.getElementById("volatility");
+            const closedInput = document.getElementById("closed");
+            const sessionRadios = document.querySelectorAll('input[name="session"]');
+            const outputContainer = document.getElementById("outputContainer");
+
+            // Calculate function
+            function calculateTrading() {
+                // Check if all inputs are filled
+                const vf = parseFloat(volatilityInput.value);
+                const cf = parseFloat(closedInput.value);
+                let sf = 0;
+
+                // Get selected session
+                for (const radio of sessionRadios) {
+                    if (radio.checked) {
+                        switch(radio.value) {
+                            case "ER": sf = 8; break;
+                            case "AS": sf = 21; break;
+                            case "AM": sf = 13; break;
+                        }
+                    }
+                }
+
+                // If all values are present, calculate
+                if (!isNaN(vf) && !isNaN(cf) && sf > 0) {
+                    // Show output container
+                    outputContainer.style.display = "block";
+
+                    // Basic calculations
+                    const hs = vf + sf;
+                    const ls = vf - sf;
+                    const range = hs - ls;
+                    const pp = (hs + ls + cf) / 3;
+
+                    // Determine signal
+                    let signal = "Konsolidasi";
+                    let signalClass = "sideways";
+                    
+                    if (cf > hs && cf > ls) {
+                        signal = "Bullish";
+                        signalClass = "bullish";
+                    } else if (cf < ls && cf < hs) {
+                        signal = "Bearish";
+                        signalClass = "bearish";
+                    }
+
+                    // Core calculation
+                    const core = ((pp - cf) / range) * 100;
+
+                    // Update pivot and signal
+                    document.getElementById("pivotValue").textContent = pp.toFixed(2);
+                    const signalElement = document.getElementById("signalIndicator");
+                    signalElement.textContent = signal;
+                    signalElement.className = "signal " + signalClass;
+
+                    // Sentiment bar calculation - IMPROVED: show percentages
+                    const d = pp + (range * 3);
+                    const a = pp - (range * 3);
+                    const pBar = ((cf - a) / (d - a)) * 100;
+                    const bullishPct = Math.max(0, Math.min(100, pBar));
+                    const bearishPct = 100 - bullishPct;
+                    
+                    document.getElementById("bullishBar").style.width = bullishPct + "%";
+                    document.getElementById("bearishBar").style.width = bearishPct + "%";
+                    document.getElementById("bullishPercent").textContent = Math.round(bullishPct);
+                    document.getElementById("bearishPercent").textContent = Math.round(bearishPct);
+
+                    // Level calculations
+                    const multipliers = [
+                        { value: 0.118, type: "ac/dc", highlight: true },
+                        { value: 0.5, type: "ac/dc", highlight: true },
+                        { value: 1.618, type: "target", highlight: false },
+                        { value: 2, type: "ac/dc", highlight: false },
+                        { value: 2.618, type: "target", highlight: false },
+                        { value: 3, type: "ac/dc", highlight: false },
+                        { value: 4.236, type: "target", highlight: false },
+                        { value: 4.5, type: "ac/dc", highlight: false }
+                    ];
+
+                    // Clear tables
+                    const accTable = document.getElementById("accumulationTable");
+                    const distTable = document.getElementById("distributionTable");
+                    accTable.innerHTML = '';
+                    distTable.innerHTML = '';
+
+                    // Fill tables - IMPROVED: highlight for low multipliers
+                    multipliers.forEach(m => {
+                        // Distribution levels
+                        const distLevel = cf + (range * m.value);
+                        const distRow = document.createElement("tr");
+                        if (m.highlight) {
+                            distRow.classList.add("highlight-row");
+                        }
+                        
+                        let distLabel = "";
+                        if (m.type === "ac/dc") {
+                            distLabel = m.value < 1 ? `Berpotensi DC-` : `Berpotensi DC+`;
+                        } else {
+                            distLabel = `Target Bullish`;
+                        }
+                        
+                        distRow.innerHTML = `
+                            <td>${distLabel}</td>
+                            <td>${distLevel.toFixed(2)}</td>
+                        `;
+                        distTable.appendChild(distRow);
+
+                        // Accumulation levels
+                        const accLevel = cf - (range * m.value);
+                        const accRow = document.createElement("tr");
+                        if (m.highlight) {
+                            accRow.classList.add("highlight-row");
+                        }
+                        
+                        let accLabel = "";
+                        if (m.type === "ac/dc") {
+                            accLabel = m.value < 1 ? `Berpotensi AC-` : `Berpotensi AC+`;
+                        } else {
+                            accLabel = `Target Bearish`;
+                        }
+                        
+                        accRow.innerHTML = `
+                            <td>${accLabel}</td>
+                            <td>${accLevel.toFixed(2)}</td>
+                        `;
+                        accTable.appendChild(accRow);
+                    });
+
+                    // Update core value
+                    document.getElementById("coreValue").textContent = core.toFixed(2);
+                }
+            }
+
+            // Add event listeners
+            volatilityInput.addEventListener("input", calculateTrading);
+            closedInput.addEventListener("input", calculateTrading);
+            sessionRadios.forEach(radio => {
+                radio.addEventListener("change", calculateTrading);
+            });
+        });
+    </script>
+</body>
+</html>
