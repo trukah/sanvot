@@ -689,7 +689,7 @@
                     // Fill tables
                     multipliers.forEach(m => {
                         // Distribution levels
-                        const distLevel = cf + (range * m.value);
+                        const distLevel = pp + (range * m.value);
                         const distRow = document.createElement("tr");
 
                         // Apply specific highlight for multiplier 2 distribution
@@ -722,7 +722,7 @@
                         distTable.appendChild(distRow);
 
                         // Accumulation levels
-                        const accLevel = cf - (range * m.value);
+                        const accLevel = pp - (range * m.value);
                         const accRow = document.createElement("tr");
 
                         // Apply specific highlight for multiplier 2 accumulation
