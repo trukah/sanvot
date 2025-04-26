@@ -1,5 +1,5 @@
 # Quant-AI Sanva Theory Calculator
-[https://g.co/gemini/share/98fd3b1765a0](https://g.co/gemini/share/360e3f52e6f8)
+
 
 Kiye dokumentasi kanggo kode HTML, CSS, lan JavaScript sing nggawe alat itungan Quant-AI sederhana nganggo dasar Sanva Theory. Tampilane digawe modern lan responsif ben apik dideleng nang pirang-pirang ukuran layar.
 
